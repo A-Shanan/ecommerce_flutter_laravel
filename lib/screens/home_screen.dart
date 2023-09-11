@@ -137,9 +137,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     String? token = preferences.getString('token');
-    // final getProductsProvider = Provider.of<GetProducts>(context);
-    // // Trigger the method to fetch products (you might do this in an init state or button press)
-    // getProductsProvider.getAllProduct(token);
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -272,7 +269,8 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (context, provider, child) {
               // Check if the data is loaded
               if (provider.products.isEmpty) {
-                return CircularProgressIndicator(); // Loading indicator
+                return Center(
+                    child: CircularProgressIndicator()); // Loading indicator
               } else if (provider.products.isEmpty) {
                 return Text('No products available.');
               } else {
@@ -305,7 +303,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               description: product['description'],
                               price: product['price'],
                               stock: product['stock'],
-                              id: product['id'],
+                              productId: product['id'],
+                              imageUrlB: product['image'],
+                              priceB: double.parse(product["price"]),
+                              productIdB: product['id'],
+                              titleB: product['name'],
                             );
                           },
                         );

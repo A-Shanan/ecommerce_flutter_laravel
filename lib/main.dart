@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import
 
 import 'package:ecommerce_flutter_laravel/nav_bar.dart';
+import 'package:ecommerce_flutter_laravel/providers/cart_provider.dart';
 import 'package:ecommerce_flutter_laravel/screens/home_screen.dart';
 import 'package:ecommerce_flutter_laravel/screens/login_screen.dart';
 import 'package:ecommerce_flutter_laravel/screens/registeration_screen.dart';
@@ -18,6 +19,7 @@ void main() {
       ChangeNotifierProvider(create: (context) => Auth()),
       ChangeNotifierProvider(create: (context) => GetProducts()),
       ChangeNotifierProvider(create: (context) => Wishlist()),
+      ChangeNotifierProvider(create: (context) => CartProvider()),
     ],
     child: const MyApp(),
   ));

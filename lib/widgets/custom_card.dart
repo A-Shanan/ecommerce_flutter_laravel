@@ -72,7 +72,7 @@ class CustomCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "\$$price",
+                            "\$${price.toString()}",
                             style: const TextStyle(
                                 fontFamily: 'Poppins', fontSize: 14),
                           ),

@@ -17,7 +17,8 @@ class API {
     });
   }
 
-  postRequest1(String route, Map<String, dynamic> data, String token) async {
+  postRequestToken(
+      String route, Map<String, dynamic> data, String token) async {
     String url = "http://192.168.137.1:8000/api/v1$route";
     return await http.post(Uri.parse(url), body: jsonEncode(data), headers: {
       "Authorization": "Bearer $token",
@@ -45,9 +46,9 @@ class API {
     });
   }
 
-  deleteRequest(String route, String token) async {
-    String url = "http://192.168.137.1:8000/api/v1$route";
-    return await http.get(Uri.parse(url), headers: {
+  deleteRequest(String route, String token, int id) async {
+    String url = "http://192.168.137.1:8000/api/v1$route/$id";
+    return await http.delete(Uri.parse(url), headers: {
       "Authorization": "Bearer $token",
       'Content-type': 'application/json',
       'Accept': 'application/json'

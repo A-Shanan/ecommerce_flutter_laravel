@@ -1,3 +1,5 @@
+import 'package:ecommerce_flutter_laravel/providers/cart_provider.dart';
+import 'package:ecommerce_flutter_laravel/screens/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -6,20 +8,28 @@ import '../services/wishlist.dart';
 
 class CustomModal extends StatelessWidget {
   final String imageUrl;
+  final String imageUrlB;
   final String title;
+  final String titleB;
   final String description;
   final String price;
+  final double priceB;
   final int stock;
-  final int id;
+  final int productId;
+  final int productIdB;
 
   CustomModal({
     super.key,
     required this.imageUrl,
+    required this.imageUrlB,
     required this.title,
+    required this.titleB,
     required this.description,
     required this.price,
+    required this.priceB,
     required this.stock,
-    required this.id,
+    required this.productId,
+    required this.productIdB,
     preferences,
   });
 
@@ -68,22 +78,38 @@ class CustomModal extends StatelessWidget {
                           height: 1.2, fontFamily: 'Poppins', fontSize: 17),
                     ),
                     IconButton(
-                        onPressed: () async {
-                          SharedPreferences preferences =
-                              await SharedPreferences.getInstance();
-                          String? token = preferences.getString('token');
-                          Map<String, dynamic> data = {
-                            "product_id": id,
-                            "user_id": preferences.getInt('user_id'),
-                          };
-                          print('favIcon is pressed');
-                          Provider.of<Wishlist>(context, listen: false)
-                              .addToFav(data, token!);
+                      onPressed: () async {
+                        // SharedPreferences preferences =
+                        //     await SharedPreferences.getInstance();
+                        // String? token = preferences.getString('token');
+                        // Map<String, dynamic> data = {
+                        //   "product_id": id,
+                        //   "user_id": preferences.getInt('user_id'),
+                        // };
+                        // print('favIcon is pressed');
+                        // Provider.of<Wishlist>(context, listen: false)
+                        //     .addToFav(data, token!);
+                      },
+                      icon: Consumer<Wishlist>(
+                        builder: (context, favoriteModel, child) {
+                          return IconButton(
+                            icon: Icon(
+                              favoriteModel.isFavorite(productId)
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: const Color(0xffFFB100),
+                            ),
+                            onPressed: () async {
+                              SharedPreferences preferences =
+                                  await SharedPreferences.getInstance();
+                              String? token = preferences.getString('token');
+                              favoriteModel.toggleFavorite(productId,
+                                  preferences.getInt('user_id')!, token!);
+                            },
+                          );
                         },
-                        icon: Icon(
-                          Icons.abc,
-                          color: Colors.amber,
-                        ))
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -110,7 +136,21 @@ class CustomModal extends StatelessWidget {
                     ),
                   ),
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      // Call the addToCart function when the user taps a product.
+                      Provider.of<CartProvider>(context, listen: false)
+                          .addToCart(
+                        productIdB,
+                        titleB,
+                        priceB,
+                        imageUrlB,
+                      );
+
+                      // Navigate to the CartScreen when the user adds a product to the cart.
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => CartScreen(),
+                      ));
+                    },
                     child: const Text(
                       "Add to cart",
                       style: TextStyle(

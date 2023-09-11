@@ -33,7 +33,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // String? token = preferences1.getString('token');
+    String? token = preferences.getString('token');
     // final getWishlistProvider = Provider.of<Wishlist>(context);
     // getWishlistProvider.getWishlist(token);
 
@@ -116,30 +116,47 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             itemBuilder: (context, index) {
               final item = wishlist.wishlists[index];
               // Build your list item here using the item data
-              return Card(
-                margin: EdgeInsets.all(10),
-                child: ListTile(
-                  isThreeLine: true,
-                  leading: Image.network(
-                    item['products']['image'],
-                    height: MediaQuery.of(context).size.height / 3.0,
+              return Dismissible(
+                key: UniqueKey(), // Use a unique key for each item
+                background: Container(
+                  color: Colors.red, // Background color when swiping left
+                  alignment: Alignment.centerRight,
+                  padding: EdgeInsets.only(right: 20.0),
+                  child: Icon(
+                    Icons.delete,
+                    color: Colors.white,
                   ),
-                  title: Text(
-                    "${item['products']['name']}",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15),
+                ),
+                onDismissed: (direction) {
+                  // Remove the item from the wishlist when swiped
+                  wishlist.deleteWishlist(token, item['id'] as int);
+                },
+                child: Card(
+                  // margin: EdgeInsets.all(5),
+                  child: ListTile(
+                    isThreeLine: true,
+                    leading: Image.network(
+                      item['products']['image'],
+                      height: MediaQuery.of(context).size.height / 3.0,
+                    ),
+                    title: Text(
+                      "${item['products']['name']}",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15),
+                    ),
+                    subtitle: Text(
+                      "${item['products']['description']}",
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style:
+                          const TextStyle(fontFamily: 'Poppins', fontSize: 13),
+                    ),
+                    // Add more widgets to display other information
                   ),
-                  subtitle: Text(
-                    "${item['products']['description']}",
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontFamily: 'Poppins', fontSize: 13),
-                  ),
-                  // Add more widgets to display other information
                 ),
               );
             },
