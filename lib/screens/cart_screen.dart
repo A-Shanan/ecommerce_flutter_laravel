@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import, unused_local_variable, prefer_const_constructors, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';

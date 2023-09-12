@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, must_be_immutable, non_constant_identifier_names
+// ignore_for_file: avoid_print, must_be_immutable, non_constant_identifier_names, prefer_const_constructors, unused_import
 
 import 'dart:convert';
 

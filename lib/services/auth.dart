@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, use_build_context_synchronously
+// ignore_for_file: avoid_print, use_build_context_synchronously, unused_import
 
 import 'dart:convert';
 import 'dart:io';
@@ -24,7 +24,7 @@ class Auth extends ChangeNotifier {
   // User get userGetter => user!;
   late SharedPreferences preferences;
 
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
 
   // postRequest(String route, Map<String, dynamic> data) async {
   //   String url = "http://192.168.137.1:8000/api/v1$route";
@@ -47,7 +47,7 @@ class Auth extends ChangeNotifier {
       isLoggedIn = true;
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => NavBar()),
+        MaterialPageRoute(builder: (context) => const NavBar()),
       );
       notifyListeners();
     } else {
@@ -88,7 +88,7 @@ class Auth extends ChangeNotifier {
     isLoggedIn = false;
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => LoginScreen()),
+      MaterialPageRoute(builder: (context) => const LoginScreen()),
     );
     notifyListeners();
   }
