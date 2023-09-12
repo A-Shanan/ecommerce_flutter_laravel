@@ -117,92 +117,102 @@ class _CartScreenState extends State<CartScreen> {
                       builder: (context) {
                         return FractionallySizedBox(
                           heightFactor: 1,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      IconButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          icon: const Icon(
-                                              Icons.highlight_remove_sharp))
-                                    ],
-                                  ),
-                                  Container(
-                                    constraints: const BoxConstraints(
-                                      maxHeight: 200.0,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 2.0, left: 4.0, right: 4.0, bottom: 10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            icon: const Icon(
+                                              Icons.highlight_remove_sharp,
+                                              size: 30,
+                                              color: Color(0xffFFB100),
+                                            ))
+                                      ],
                                     ),
-                                    child: ListView.builder(
-                                      itemCount:
-                                          cartProvider.cartItemsGetter.length,
-                                      itemBuilder: (context, index) {
-                                        final cartItem =
-                                            cartProvider.cartItemsGetter[index];
-                                        return ListTile(
-                                          isThreeLine: true,
-                                          leading:
-                                              Image.network(cartItem.imageUrl),
-                                          title: Text(cartItem.productName),
-                                          subtitle: Text(
-                                              'Price: \$${cartItem.price.toStringAsFixed(2)}'),
-                                          trailing: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              IconButton(
-                                                icon: Icon(Icons.remove),
-                                                onPressed: () {
-                                                  cartProvider
-                                                      .decreaseQuantity(index);
-                                                },
-                                              ),
-                                              Text('${cartItem.quantity}'),
-                                              IconButton(
-                                                icon: Icon(Icons.add),
-                                                onPressed: () {
-                                                  cartProvider
-                                                      .increaseQuantity(index);
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      },
+                                    Container(
+                                      constraints: const BoxConstraints(
+                                        maxHeight: 200.0,
+                                      ),
+                                      child: ListView.builder(
+                                        itemCount:
+                                            cartProvider.cartItemsGetter.length,
+                                        itemBuilder: (context, index) {
+                                          final cartItem = cartProvider
+                                              .cartItemsGetter[index];
+                                          return ListTile(
+                                            isThreeLine: true,
+                                            leading: Image.network(
+                                                cartItem.imageUrl),
+                                            title: Text(cartItem.productName),
+                                            subtitle: Text(
+                                                'Price: \$${cartItem.price.toStringAsFixed(2)}'),
+                                            trailing: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                IconButton(
+                                                  icon: Icon(Icons.remove),
+                                                  onPressed: () {
+                                                    cartProvider
+                                                        .decreaseQuantity(
+                                                            index);
+                                                  },
+                                                ),
+                                                Text('${cartItem.quantity}'),
+                                                IconButton(
+                                                  icon: Icon(Icons.add),
+                                                  onPressed: () {
+                                                    cartProvider
+                                                        .increaseQuantity(
+                                                            index);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  height:
+                                      MediaQuery.of(context).size.height / 20,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12.0),
+                                    gradient: const LinearGradient(
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.topRight,
+                                      colors: <Color>[
+                                        Color(0xffFFB100),
+                                        Color(0xffEEAE1C),
+                                        Color(0xffF5A64F),
+                                      ],
                                     ),
                                   ),
-                                ],
-                              ),
-                              Container(
-                                height: MediaQuery.of(context).size.height / 20,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  gradient: const LinearGradient(
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.topRight,
-                                    colors: <Color>[
-                                      Color(0xffFFB100),
-                                      Color(0xffEEAE1C),
-                                      Color(0xffF5A64F),
-                                    ],
+                                  child: TextButton(
+                                    onPressed: () async {},
+                                    child: const Text(
+                                      "done",
+                                      style: TextStyle(
+                                          fontSize: 14.0,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: 'Poppins'),
+                                    ),
                                   ),
-                                ),
-                                child: TextButton(
-                                  onPressed: () {},
-                                  child: const Text(
-                                    "done",
-                                    style: TextStyle(
-                                        fontSize: 14.0,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: 'Poppins'),
-                                  ),
-                                ),
-                              )
-                            ],
+                                )
+                              ],
+                            ),
                           ),
                         );
                       });
