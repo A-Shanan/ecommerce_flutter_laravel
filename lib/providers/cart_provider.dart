@@ -51,4 +51,20 @@ class CartProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+
+  double calculateTotalPrice() {
+    double total = 0;
+    for (var item in cartItems) {
+      total += item.price * item.quantity;
+    }
+    return total;
+  }
+
+  int calculateTotalQuantity() {
+    int totalQuantity = 0;
+    for (var item in cartItems) {
+      totalQuantity += item.quantity;
+    }
+    return totalQuantity;
+  }
 }

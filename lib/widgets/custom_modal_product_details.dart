@@ -137,7 +137,6 @@ class CustomModal extends StatelessWidget {
                   ),
                   child: TextButton(
                     onPressed: () {
-                      // Call the addToCart function when the user taps a product.
                       Provider.of<CartProvider>(context, listen: false)
                           .addToCart(
                         productIdB,
@@ -147,9 +146,9 @@ class CustomModal extends StatelessWidget {
                       );
 
                       // Navigate to the CartScreen when the user adds a product to the cart.
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CartScreen(),
-                      ));
+                      // Navigator.of(context).push(MaterialPageRoute(
+                      //   builder: (context) => CartScreen(),
+                      // ));
                     },
                     child: const Text(
                       "Add to cart",

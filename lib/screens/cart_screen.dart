@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../providers/cart_provider.dart';
+import '../providers/order_provider.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -14,6 +16,9 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context);
+    final orderProvider = Provider.of<OrderProvider>(context);
+    double totalPrice = cartProvider.calculateTotalPrice();
+    int totalQuantity = cartProvider.calculateTotalQuantity();
 
     return Scaffold(
       appBar: AppBar(
@@ -51,19 +56,186 @@ class _CartScreenState extends State<CartScreen> {
       ),
       bottomNavigationBar: Padding(
         padding: EdgeInsets.all(16.0),
-        child: Text(
-          'Total: \$${calculateTotalPrice(cartProvider.cartItemsGetter).toStringAsFixed(2)}',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // IconButton(
+            //     onPressed: () async {
+            //       SharedPreferences preferences =
+            //           await SharedPreferences.getInstance();
+            //       int? id = preferences.getInt('orderId');
+            //       double? total = preferences.getDouble('total');
+            //       print(id);
+            //     },
+            //     icon: Icon(Icons.abc)),
+            Text(
+              'Total: \$${cartProvider.calculateTotalPrice().toStringAsFixed(2)}',
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            InkWell(
+              onTap: () {
+                print(totalQuantity);
+              },
+              child: Text(
+                'Quantity: ${cartProvider.calculateTotalQuantity().toStringAsFixed(0)}',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height / 20,
+              // height: 40.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.0),
+                gradient: const LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.topRight,
+                  colors: <Color>[
+                    Color(0xffFFB100),
+                    Color(0xffEEAE1C),
+                    Color(0xffF5A64F),
+                  ],
+                ),
+              ),
+              child: TextButton(
+                onPressed: () async {
+                  // SharedPreferences preferences =
+                  //     await SharedPreferences.getInstance();
+                  // int? userId = preferences.getInt('user_id');
+                  // String? token = preferences.getString('token');
+
+                  // orderProvider.addToOrders(userId!, totalPrice, token!);
+                  showModalBottomSheet(
+                      enableDrag: false,
+                      useSafeArea: true,
+                      isScrollControlled: true,
+                      context: context,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(20),
+                        ),
+                      ),
+                      builder: (context) {
+                        return FractionallySizedBox(
+                          heightFactor: 1,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      IconButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          icon: const Icon(
+                                              Icons.highlight_remove_sharp))
+                                    ],
+                                  ),
+                                  Container(
+                                    constraints: const BoxConstraints(
+                                      maxHeight: 200.0,
+                                    ),
+                                    child: ListView.builder(
+                                      itemCount:
+                                          cartProvider.cartItemsGetter.length,
+                                      itemBuilder: (context, index) {
+                                        final cartItem =
+                                            cartProvider.cartItemsGetter[index];
+                                        return ListTile(
+                                          isThreeLine: true,
+                                          leading:
+                                              Image.network(cartItem.imageUrl),
+                                          title: Text(cartItem.productName),
+                                          subtitle: Text(
+                                              'Price: \$${cartItem.price.toStringAsFixed(2)}'),
+                                          trailing: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              IconButton(
+                                                icon: Icon(Icons.remove),
+                                                onPressed: () {
+                                                  cartProvider
+                                                      .decreaseQuantity(index);
+                                                },
+                                              ),
+                                              Text('${cartItem.quantity}'),
+                                              IconButton(
+                                                icon: Icon(Icons.add),
+                                                onPressed: () {
+                                                  cartProvider
+                                                      .increaseQuantity(index);
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Container(
+                                height: MediaQuery.of(context).size.height / 20,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  gradient: const LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.topRight,
+                                    colors: <Color>[
+                                      Color(0xffFFB100),
+                                      Color(0xffEEAE1C),
+                                      Color(0xffF5A64F),
+                                    ],
+                                  ),
+                                ),
+                                child: TextButton(
+                                  onPressed: () {},
+                                  child: const Text(
+                                    "done",
+                                    style: TextStyle(
+                                        fontSize: 14.0,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: 'Poppins'),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      });
+                },
+                child: const Text(
+                  "Check out",
+                  style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Poppins'),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  double calculateTotalPrice(List<CartItem> cartItems) {
-    double total = 0;
-    for (var item in cartItems) {
-      total += item.price * item.quantity;
-    }
-    return total;
-  }
+  // double calculateTotalPrice(List<CartItem> cartItems) {
+  //   double total = 0;
+  //   for (var item in cartItems) {
+  //     total += item.price * item.quantity;
+  //   }
+  //   return total;
+  // }
+
+  // int calculateTotalQuantity(List<CartItem> cartItems) {
+  //   int totalQuantity = 0;
+  //   for (var item in cartItems) {
+  //     totalQuantity += item.quantity;
+  //   }
+  //   return totalQuantity.toInt();
+  // }
 }
