@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, non_constant_identifier_names, use_build_context_synchronously
+// ignore_for_file: avoid_print, non_constant_identifier_names, use_build_context_synchronously, unused_import
 
 import 'dart:convert';
 
@@ -93,7 +93,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => RegisterationScreen()),
+                                builder: (context) =>
+                                    const RegisterationScreen()),
                             (route) => false);
                       },
                       child: const Text(
@@ -329,7 +330,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => HomeScreen(),
+          builder: (context) => const HomeScreen(),
         ),
       );
     } else {
