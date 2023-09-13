@@ -39,4 +39,34 @@ class OrderProvider with ChangeNotifier {
       print(response["message"]);
     }
   }
+
+  Future<Map<String, dynamic>?> createOrder(
+      double total, int userId, String token) async {
+    Map<String, dynamic> data = {"user_id": userId, "total": total};
+
+    final response = await API().postRequestToken('/order', data, token);
+    if (response.statusCode == 200) {
+      // Parse the response body and return it as a map
+      final responseData = jsonDecode(response.body);
+      return responseData;
+    } else {
+      // Handle error cases here if needed
+      throw Exception('Failed to create order');
+    }
+    // final response = await yourApiService.postOrder(
+    //     total, userId); // Implement your API service
+    return response;
+  }
+
+  Future<void> createOrderDetails(int orderId, int productId, int quantity,
+      double price, String token) async {
+    Map<String, dynamic> data = {
+      "order_id": orderId,
+      "product_id": productId,
+      "quantity": quantity,
+      "price": price,
+    };
+    final response = await API().postRequestToken('/orderDetails', data, token);
+    return response;
+  }
 }
