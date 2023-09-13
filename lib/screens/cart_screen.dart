@@ -126,6 +126,7 @@ class _CartScreenState extends State<CartScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
@@ -184,6 +185,7 @@ class _CartScreenState extends State<CartScreen> {
                                         },
                                       ),
                                     ),
+                                    Text('data'),
                                   ],
                                 ),
                                 Container(
@@ -202,7 +204,35 @@ class _CartScreenState extends State<CartScreen> {
                                     ),
                                   ),
                                   child: TextButton(
-                                    onPressed: () async {},
+                                    onPressed: () async {
+                                      SharedPreferences preferences =
+                                          await SharedPreferences.getInstance();
+                                      int? userId =
+                                          preferences.getInt('user_id');
+                                      String? token =
+                                          preferences.getString('token');
+                                      // Create the order
+                                      final orderResponse =
+                                          await orderProvider.createOrder(
+                                              totalPrice, userId!, token!);
+
+                                      if (orderResponse != null) {
+                                        // Create order details for each item in the cart
+                                        for (CartItem cartItem
+                                            in cartProvider.cartItemsGetter) {
+                                          await orderProvider
+                                              .createOrderDetails(
+                                                  orderResponse['order']['id'],
+                                                  cartItem.productId,
+                                                  cartItem.quantity,
+                                                  cartItem.price,
+                                                  token);
+                                        }
+
+                                        // Clear the cart
+                                        // cartProvider.clearCart();
+                                      }
+                                    },
                                     child: const Text(
                                       "done",
                                       style: TextStyle(
@@ -212,7 +242,17 @@ class _CartScreenState extends State<CartScreen> {
                                           fontFamily: 'Poppins'),
                                     ),
                                   ),
-                                )
+                                ),
+                                // IconButton(
+                                //     onPressed: () async {
+                                //       SharedPreferences preferences =
+                                //           await SharedPreferences.getInstance();
+                                //       int? id = preferences.getInt('orderId');
+                                //       double? total =
+                                //           preferences.getDouble('total');
+                                //       print(id);
+                                //     },
+                                //     icon: Icon(Icons.abc)),
                               ],
                             ),
                           ),
