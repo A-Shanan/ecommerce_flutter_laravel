@@ -125,68 +125,92 @@ class _CartScreenState extends State<CartScreen> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        IconButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            icon: const Icon(
-                                              Icons.highlight_remove_sharp,
-                                              size: 30,
-                                              color: Color(0xffFFB100),
-                                            ))
-                                      ],
-                                    ),
-                                    Container(
-                                      constraints: const BoxConstraints(
-                                        maxHeight: 200.0,
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 10.0, top: 8.0, right: 10.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          IconButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              icon: const Icon(
+                                                Icons.highlight_remove_sharp,
+                                                size: 30,
+                                                color: Color(0xffFFB100),
+                                              ))
+                                        ],
                                       ),
-                                      child: ListView.builder(
-                                        itemCount:
-                                            cartProvider.cartItemsGetter.length,
-                                        itemBuilder: (context, index) {
-                                          final cartItem = cartProvider
-                                              .cartItemsGetter[index];
-                                          return ListTile(
-                                            isThreeLine: true,
-                                            leading: Image.network(
-                                                cartItem.imageUrl),
-                                            title: Text(cartItem.productName),
-                                            subtitle: Text(
-                                                'Price: \$${cartItem.price.toStringAsFixed(2)}'),
-                                            trailing: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                IconButton(
-                                                  icon: Icon(Icons.remove),
-                                                  onPressed: () {
-                                                    cartProvider
-                                                        .decreaseQuantity(
-                                                            index);
-                                                  },
-                                                ),
-                                                Text('${cartItem.quantity}'),
-                                                IconButton(
-                                                  icon: Icon(Icons.add),
-                                                  onPressed: () {
-                                                    cartProvider
-                                                        .increaseQuantity(
-                                                            index);
-                                                  },
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
+                                      Container(
+                                        constraints: const BoxConstraints(
+                                          maxHeight: 200.0,
+                                        ),
+                                        child: ListView.builder(
+                                          itemCount: cartProvider
+                                              .cartItemsGetter.length,
+                                          itemBuilder: (context, index) {
+                                            final cartItem = cartProvider
+                                                .cartItemsGetter[index];
+                                            return ListTile(
+                                              isThreeLine: true,
+                                              leading: Image.network(
+                                                  cartItem.imageUrl),
+                                              title: Text(cartItem.productName),
+                                              subtitle: Text(
+                                                  'Price: \$${cartItem.price.toStringAsFixed(2)}'),
+                                              trailing: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  IconButton(
+                                                    icon: Icon(Icons.remove),
+                                                    onPressed: () {
+                                                      cartProvider
+                                                          .decreaseQuantity(
+                                                              index);
+                                                    },
+                                                  ),
+                                                  Text('${cartItem.quantity}'),
+                                                  IconButton(
+                                                    icon: Icon(Icons.add),
+                                                    onPressed: () {
+                                                      cartProvider
+                                                          .increaseQuantity(
+                                                              index);
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        ),
                                       ),
-                                    ),
-                                    Text('data'),
-                                  ],
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text('My Addresses'),
+                                          TextButton(
+                                              onPressed: () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return AlertDialog(
+                                                        title: const Text(
+                                                            'Add an address'),
+                                                      );
+                                                    });
+                                              },
+                                              child: Text('add address'))
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 Container(
                                   height:

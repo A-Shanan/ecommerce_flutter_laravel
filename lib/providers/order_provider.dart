@@ -7,19 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:ecommerce_flutter_laravel/services/API.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Order {
-  final int userId;
-  final double total;
+// class Order {
+//   final int userId;
+//   final double total;
 
-  Order({
-    required this.userId,
-    required this.total,
-  });
-}
+//   Order({
+//     required this.userId,
+//     required this.total,
+//   });
+// }
 
 class OrderProvider with ChangeNotifier {
-  List<Order> orders = [];
-  List<Order> get ordersGetter => orders;
+  // List<Order> orders = [];
+  // List<Order> get ordersGetter => orders;
 
   void addToOrders(int userId, double total, String token) async {
     Map<String, dynamic> data = {

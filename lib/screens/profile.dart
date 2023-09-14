@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print, prefer_const_literals_to_create_immutables
 
+import 'package:ecommerce_flutter_laravel/screens/address_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -221,7 +222,10 @@ class ProfileScreenState extends State<ProfileScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => AddressScreen()));
+                    },
                     icon: Row(
                       children: const [
                         Icon(
