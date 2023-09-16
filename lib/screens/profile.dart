@@ -1,6 +1,8 @@
 // ignore_for_file: avoid_print, prefer_const_literals_to_create_immutables
 
+import 'package:ecommerce_flutter_laravel/providers/cart_provider.dart';
 import 'package:ecommerce_flutter_laravel/screens/address_screen.dart';
+import 'package:ecommerce_flutter_laravel/screens/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -36,6 +38,7 @@ class ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80.0),
@@ -59,7 +62,11 @@ class ProfileScreenState extends State<ProfileScreen> {
                 child: InkWell(
                   borderRadius: BorderRadius.circular(12),
                   onTap: () {
-                    // Handle button tap
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CartScreen(),
+                      ),
+                    );
                   },
                   child: Padding(
                     padding:
@@ -72,8 +79,8 @@ class ProfileScreenState extends State<ProfileScreen> {
                           color: Colors.black,
                         ),
                         const SizedBox(width: 9),
-                        const Text(
-                          '1',
+                        Text(
+                          '${cartProvider.cartItemsGetter.length}',
                           style: TextStyle(color: Colors.black),
                         ),
                       ],

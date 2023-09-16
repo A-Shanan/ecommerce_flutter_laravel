@@ -96,6 +96,7 @@
 
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, use_build_context_synchronously, unused_import
 
+import 'package:ecommerce_flutter_laravel/providers/cart_provider.dart';
 import 'package:ecommerce_flutter_laravel/screens/cart_screen.dart';
 import 'package:ecommerce_flutter_laravel/services/getProducts.dart';
 import 'package:ecommerce_flutter_laravel/widgets/custom_card.dart';
@@ -136,6 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     // String? token = preferences.getString('token');
+    final cartProvider = Provider.of<CartProvider>(context);
     return FutureBuilder(
         future: getUserData(),
         builder: (context, snapshot) {
@@ -183,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               SizedBox(width: 9),
                               Text(
-                                '1',
+                                '${cartProvider.cartItemsGetter.length}',
                                 style: TextStyle(color: Colors.black),
                               ),
                             ],

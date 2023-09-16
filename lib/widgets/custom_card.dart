@@ -30,85 +30,53 @@ class CustomCard extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(30)),
           color: Colors.amber,
         ),
-        child: Stack(
-          alignment: Alignment.topRight,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
+              child: Image.network(
+                imageUrl,
+                fit: BoxFit.fitWidth,
+                width: MediaQuery.of(context).size.width / 1.5,
+                height: MediaQuery.of(context).size.height / 6.5,
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.only(left: 9, right: 9, top: 5, bottom: 5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14.5),
                   ),
-                  child: Image.network(
-                    imageUrl,
-                    fit: BoxFit.fitWidth,
-                    width: MediaQuery.of(context).size.width / 1.5,
-                    height: MediaQuery.of(context).size.height / 6.5,
+                  Text(
+                    description,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontFamily: 'Poppins', fontSize: 14),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 9, right: 9, top: 5, bottom: 5),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        title,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14.5),
-                      ),
-                      Text(
-                        description,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
+                        "\$${price.toString()}",
                         style: const TextStyle(
                             fontFamily: 'Poppins', fontSize: 14),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "\$${price.toString()}",
-                            style: const TextStyle(
-                                fontFamily: 'Poppins', fontSize: 14),
-                          ),
-                        ],
-                      ),
                     ],
                   ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 12.0, right: 12.0),
-              child: SizedBox(
-                height: 32.0,
-                width: 32.0,
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: IconButton(
-                    onPressed: () async {
-                      // Map<String, dynamic> data = {
-                      //   "product_id": id,
-                      //   "user_id": preferences!.getInt('user_id'),
-                      // };
-                      print('favIcon is pressed');
-                      // Provider.of<Wishlist>(context, listen: false)
-                      //     .addToFav(data);
-                    },
-                    icon: const Icon(
-                      Icons.favorite_border,
-                      color: Colors.red,
-                      size: 18,
-                    ),
-                  ),
-                ),
+                ],
               ),
             ),
           ],

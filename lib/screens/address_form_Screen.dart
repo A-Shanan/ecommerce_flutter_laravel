@@ -394,7 +394,7 @@ class AddressFormScreen extends StatelessWidget {
                               }
                             },
                             child: const Text(
-                              "Sign In",
+                              "Add",
                               style: TextStyle(
                                   fontSize: 26.0,
                                   color: Colors.white,

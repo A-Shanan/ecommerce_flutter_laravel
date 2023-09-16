@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print, sized_box_for_whitespace, prefer_const_literals_to_create_immutables
 
+import 'package:ecommerce_flutter_laravel/screens/done_screen.dart';
 import 'package:flutter/material.dart';
 
 class Testt extends StatelessWidget {
@@ -13,6 +14,15 @@ class Testt extends StatelessWidget {
       ),
       body: ListView(
         children: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => DoneScreen(),
+                  ),
+                );
+              },
+              icon: Icon(Icons.ad_units)),
           const SizedBox(
             height: 100,
           ),

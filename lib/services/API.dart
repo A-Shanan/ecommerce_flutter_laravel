@@ -56,4 +56,14 @@ class API {
       'Accept': 'application/json'
     });
   }
+
+  putRequest(
+      String route, String token, int id, Map<String, dynamic> data) async {
+    String url = "http://192.168.137.1:8000/api/v1$route/$id";
+    return await http.put(Uri.parse(url), body: jsonEncode(data), headers: {
+      "Authorization": "Bearer $token",
+      'Content-type': 'application/json',
+      'Accept': 'application/json'
+    });
+  }
 }

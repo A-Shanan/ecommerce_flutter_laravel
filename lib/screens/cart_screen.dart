@@ -1,5 +1,8 @@
 // ignore_for_file: unused_import, unused_local_variable, prefer_const_constructors, avoid_print
 
+import 'package:ecommerce_flutter_laravel/providers/address_provider.dart';
+import 'package:ecommerce_flutter_laravel/screens/done_screen.dart';
+import 'package:ecommerce_flutter_laravel/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,6 +24,17 @@ class _CartScreenState extends State<CartScreen> {
     final orderProvider = Provider.of<OrderProvider>(context);
     double totalPrice = cartProvider.calculateTotalPrice();
     int totalQuantity = cartProvider.calculateTotalQuantity();
+    // Get the address provider
+    final addressProvider =
+        Provider.of<AddressProvider>(context, listen: false);
+    // Get the list of addresses
+    final addresses = addressProvider.shippingAddressItems;
+    ShippingAddressItem? selectedAddress;
+    final TextEditingController cardNameController = TextEditingController();
+    final TextEditingController cardNumberController = TextEditingController();
+    final TextEditingController cardDateController = TextEditingController();
+    final TextEditingController CVVController = TextEditingController();
+    final formKey = GlobalKey<FormState>();
 
     return Scaffold(
       appBar: AppBar(
@@ -148,54 +162,71 @@ class _CartScreenState extends State<CartScreen> {
                                         ],
                                       ),
                                       Container(
-                                        constraints: const BoxConstraints(
-                                          maxHeight: 200.0,
-                                        ),
-                                        child: ListView.builder(
-                                          itemCount: cartProvider
-                                              .cartItemsGetter.length,
-                                          itemBuilder: (context, index) {
-                                            final cartItem = cartProvider
-                                                .cartItemsGetter[index];
-                                            return ListTile(
-                                              isThreeLine: true,
-                                              leading: Image.network(
-                                                  cartItem.imageUrl),
-                                              title: Text(cartItem.productName),
-                                              subtitle: Text(
-                                                  'Price: \$${cartItem.price.toStringAsFixed(2)}'),
-                                              trailing: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  IconButton(
-                                                    icon: Icon(Icons.remove),
-                                                    onPressed: () {
-                                                      cartProvider
-                                                          .decreaseQuantity(
-                                                              index);
-                                                    },
+                                          constraints: const BoxConstraints(
+                                            maxHeight: 200.0,
+                                          ),
+                                          child: ListView.builder(
+                                            itemCount: cartProvider
+                                                    .cartItemsGetter.isEmpty
+                                                ? 1 // Display one item for the empty state message
+                                                : cartProvider
+                                                    .cartItemsGetter.length,
+                                            // Add 1 for the empty state
+                                            itemBuilder: (context, index) {
+                                              if (cartProvider
+                                                  .cartItemsGetter.isEmpty) {
+                                                // Display a message when the list is empty
+                                                return Center(
+                                                  child: Text(
+                                                      'Your cart is empty.'),
+                                                );
+                                              } else {
+                                                // Display the list items when there are items in the list
+                                                final cartItem = cartProvider
+                                                    .cartItemsGetter[index];
+                                                return ListTile(
+                                                  isThreeLine: true,
+                                                  leading: Image.network(
+                                                      cartItem.imageUrl),
+                                                  title: Text(
+                                                      cartItem.productName),
+                                                  subtitle: Text(
+                                                      'Price: \$${cartItem.price.toStringAsFixed(2)}'),
+                                                  trailing: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      IconButton(
+                                                        icon:
+                                                            Icon(Icons.remove),
+                                                        onPressed: () {
+                                                          cartProvider
+                                                              .decreaseQuantity(
+                                                                  index - 1);
+                                                        },
+                                                      ),
+                                                      Text(
+                                                          '${cartItem.quantity}'),
+                                                      IconButton(
+                                                        icon: Icon(Icons.add),
+                                                        onPressed: () {
+                                                          cartProvider
+                                                              .increaseQuantity(
+                                                                  index - 1);
+                                                        },
+                                                      ),
+                                                    ],
                                                   ),
-                                                  Text('${cartItem.quantity}'),
-                                                  IconButton(
-                                                    icon: Icon(Icons.add),
-                                                    onPressed: () {
-                                                      cartProvider
-                                                          .increaseQuantity(
-                                                              index);
-                                                    },
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
+                                                );
+                                              }
+                                            },
+                                          )),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text('My Addresses'),
-                                          TextButton(
+                                          IconButton(
                                               onPressed: () {
                                                 showDialog(
                                                     context: context,
@@ -206,9 +237,247 @@ class _CartScreenState extends State<CartScreen> {
                                                       );
                                                     });
                                               },
-                                              child: Text('add address'))
+                                              icon: Icon(
+                                                  Icons
+                                                      .add_circle_outline_rounded,
+                                                  color: Color(0xffFFB100)))
                                         ],
                                       ),
+                                      Form(
+                                        key: formKey,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              width: double.infinity,
+                                              child: DropdownButton<
+                                                  ShippingAddressItem>(
+                                                hint: Text(
+                                                    'Choose your shipping address'),
+                                                value: selectedAddress,
+                                                onChanged: (ShippingAddressItem?
+                                                    newValue) {
+                                                  setState(() {
+                                                    selectedAddress = newValue;
+                                                  });
+                                                },
+                                                items: addresses.map<
+                                                        DropdownMenuItem<
+                                                            ShippingAddressItem>>(
+                                                    (ShippingAddressItem
+                                                        address) {
+                                                  return DropdownMenuItem<
+                                                      ShippingAddressItem>(
+                                                    value: address,
+                                                    child: Text(
+                                                        '${address.firstName} ${address.lastName}'),
+                                                  );
+                                                }).toList(),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 15,
+                                            ),
+                                            Text(
+                                              'Payment Method',
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontFamily: 'Poppins'),
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  1.1,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height /
+                                                  13,
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                  color: Colors.black
+                                                      .withOpacity(0.14),
+                                                ),
+                                                color: Colors.transparent,
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                              ),
+                                              child: CustomTextFormField(
+                                                controllerField:
+                                                    cardNameController,
+                                                prefixIcon: const Icon(
+                                                    Icons.person_2_outlined),
+                                                hintText: 'Name',
+                                                validator: (value) {
+                                                  if (value!.isEmpty) {
+                                                    return 'Name must NOT be empty';
+                                                  }
+                                                  return null;
+                                                },
+                                                contentPadding:
+                                                    const EdgeInsets.only(
+                                                        left: 10, top: 15),
+                                                errorStyle: const TextStyle(
+                                                  height: 0.5,
+                                                ),
+                                                keyboardType:
+                                                    TextInputType.name,
+                                                onChange: (String city) {
+                                                  print(city);
+                                                },
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  1.1,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height /
+                                                  13,
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                  color: Colors.black
+                                                      .withOpacity(0.14),
+                                                ),
+                                                color: Colors.transparent,
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                              ),
+                                              child: CustomTextFormField(
+                                                controllerField:
+                                                    cardNumberController,
+                                                prefixIcon: const Icon(
+                                                    Icons.credit_card),
+                                                hintText: 'Card Number',
+                                                validator: (value) {
+                                                  if (value!.isEmpty) {
+                                                    return 'Card Number must NOT be empty';
+                                                  }
+                                                  return null;
+                                                },
+                                                contentPadding:
+                                                    const EdgeInsets.only(
+                                                        left: 10, top: 15),
+                                                errorStyle: const TextStyle(
+                                                  height: 0.5,
+                                                ),
+                                                keyboardType:
+                                                    TextInputType.number,
+                                                onChange: (String city) {
+                                                  print(city);
+                                                },
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      2.3,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height /
+                                                      13,
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                      color: Colors.black
+                                                          .withOpacity(0.14),
+                                                    ),
+                                                    color: Colors.transparent,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                  ),
+                                                  child: CustomTextFormField(
+                                                    controllerField:
+                                                        cardDateController,
+                                                    prefixIcon: const Icon(Icons
+                                                        .date_range_outlined),
+                                                    hintText: 'Card date',
+                                                    validator: (value) {
+                                                      if (value!.isEmpty) {
+                                                        return 'Card date must NOT be empty';
+                                                      }
+                                                      return null;
+                                                    },
+                                                    contentPadding:
+                                                        const EdgeInsets.only(
+                                                            left: 10, top: 15),
+                                                    errorStyle: const TextStyle(
+                                                      height: 0.5,
+                                                    ),
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    onChange: (String card) {
+                                                      print(card);
+                                                    },
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      2.3,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height /
+                                                      13,
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                      color: Colors.black
+                                                          .withOpacity(0.14),
+                                                    ),
+                                                    color: Colors.transparent,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                  ),
+                                                  child: CustomTextFormField(
+                                                    controllerField:
+                                                        CVVController,
+                                                    prefixIcon: const Icon(
+                                                        Icons.credit_card),
+                                                    hintText: 'CVV',
+                                                    validator: (value) {
+                                                      if (value!.isEmpty) {
+                                                        return 'CVV must NOT be empty';
+                                                      }
+                                                      return null;
+                                                    },
+                                                    contentPadding:
+                                                        const EdgeInsets.only(
+                                                            left: 10, top: 15),
+                                                    errorStyle: const TextStyle(
+                                                      height: 0.5,
+                                                    ),
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    onChange: (String city) {
+                                                      print(city);
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ),
@@ -229,32 +498,44 @@ class _CartScreenState extends State<CartScreen> {
                                   ),
                                   child: TextButton(
                                     onPressed: () async {
-                                      SharedPreferences preferences =
-                                          await SharedPreferences.getInstance();
-                                      int? userId =
-                                          preferences.getInt('user_id');
-                                      String? token =
-                                          preferences.getString('token');
-                                      // Create the order
-                                      final orderResponse =
-                                          await orderProvider.createOrder(
-                                              totalPrice, userId!, token!);
+                                      if (formKey.currentState!.validate()) {
+                                        SharedPreferences preferences =
+                                            await SharedPreferences
+                                                .getInstance();
+                                        int? userId =
+                                            preferences.getInt('user_id');
+                                        String? token =
+                                            preferences.getString('token');
+                                        // Create the order
+                                        final orderResponse =
+                                            await orderProvider.createOrder(
+                                                totalPrice, userId!, token!);
 
-                                      if (orderResponse != null) {
-                                        // Create order details for each item in the cart
-                                        for (CartItem cartItem
-                                            in cartProvider.cartItemsGetter) {
-                                          await orderProvider
-                                              .createOrderDetails(
-                                                  orderResponse['order']['id'],
-                                                  cartItem.productId,
-                                                  cartItem.quantity,
-                                                  cartItem.price,
-                                                  token);
+                                        if (orderResponse != null) {
+                                          // Create order details for each item in the cart
+                                          for (CartItem cartItem
+                                              in cartProvider.cartItemsGetter) {
+                                            await orderProvider
+                                                .createOrderDetails(
+                                                    orderResponse['order']
+                                                        ['id'],
+                                                    cartItem.productId,
+                                                    cartItem.quantity,
+                                                    cartItem.price,
+                                                    token)
+                                                .then((_) =>
+                                                    Navigator.of(context)
+                                                        .pushReplacement(
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const DoneScreen(),
+                                                      ),
+                                                    ));
+                                          }
+
+                                          // Clear the cart
+                                          // cartProvider.clearCart();
                                         }
-
-                                        // Clear the cart
-                                        // cartProvider.clearCart();
                                       }
                                     },
                                     child: const Text(
