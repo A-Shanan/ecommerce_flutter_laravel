@@ -53,7 +53,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                     BoxShadow(
                       color: Colors.black.withOpacity(0.02),
                       blurRadius: 4,
-                      offset: const Offset(4, 8), // Shadow position
+                      offset: const Offset(4, 8),
                     ),
                   ],
                   color: Colors.white,
