@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print, prefer_const_literals_to_create_immutables
 
+import 'package:ecommerce_flutter_laravel/AppLocale.dart';
 import 'package:ecommerce_flutter_laravel/providers/cart_provider.dart';
 import 'package:ecommerce_flutter_laravel/screens/address_screen.dart';
 import 'package:ecommerce_flutter_laravel/screens/cart_screen.dart';
@@ -45,7 +46,7 @@ class ProfileScreenState extends State<ProfileScreen> {
         child: AppBar(
           actions: [
             Padding(
-              padding: const EdgeInsets.only(right: 35.0, top: 20.0),
+              padding: const EdgeInsets.only(right: 35.0, top: 20.0, left: 10),
               child: Container(
                 width: 65.0,
                 decoration: BoxDecoration(
@@ -92,10 +93,10 @@ class ProfileScreenState extends State<ProfileScreen> {
           ],
           elevation: 0.0,
           scrolledUnderElevation: 1.0,
-          title: const Padding(
+          title: Padding(
             padding: EdgeInsets.only(top: 20.0),
             child: Text(
-              'Profile',
+              AppLocale.of(context).translate('profile')!,
               style: TextStyle(fontFamily: 'Poppins', fontSize: 30.0),
             ),
           ),
@@ -195,15 +196,16 @@ class ProfileScreenState extends State<ProfileScreen> {
                   child: IconButton(
                     onPressed: () {},
                     icon: Row(
-                      children: const [
-                        Icon(size: 35.0, Icons.person_2_outlined),
-                        SizedBox(
+                      children: [
+                        const Icon(size: 35.0, Icons.person_2_outlined),
+                        const SizedBox(
                           width: 10.0,
                         ),
                         Text(
-                            style: TextStyle(
-                                fontSize: 20.0, fontFamily: 'Poppins'),
-                            'My Profile'),
+                          AppLocale.of(context).translate('myProfile')!,
+                          style: const TextStyle(
+                              fontSize: 20.0, fontFamily: 'Poppins'),
+                        ),
                       ],
                     ),
                   ),
@@ -213,15 +215,16 @@ class ProfileScreenState extends State<ProfileScreen> {
                   child: IconButton(
                     onPressed: () {},
                     icon: Row(
-                      children: const [
-                        Icon(size: 35.0, Icons.credit_card_outlined),
-                        SizedBox(
+                      children: [
+                        const Icon(size: 35.0, Icons.credit_card_outlined),
+                        const SizedBox(
                           width: 10.0,
                         ),
                         Text(
-                            style: TextStyle(
-                                fontSize: 20.0, fontFamily: 'Poppins'),
-                            'My Cards'),
+                          AppLocale.of(context).translate('myCards')!,
+                          style: const TextStyle(
+                              fontSize: 20.0, fontFamily: 'myCards'),
+                        ),
                       ],
                     ),
                   ),
@@ -234,18 +237,19 @@ class ProfileScreenState extends State<ProfileScreen> {
                           builder: (context) => AddressScreen()));
                     },
                     icon: Row(
-                      children: const [
-                        Icon(
+                      children: [
+                        const Icon(
                           size: 35.0,
                           Icons.home_work_outlined,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10.0,
                         ),
                         Text(
-                            style: TextStyle(
-                                fontSize: 20.0, fontFamily: 'Poppins'),
-                            'My Addresses'),
+                          AppLocale.of(context).translate('myAddresses')!,
+                          style: const TextStyle(
+                              fontSize: 20.0, fontFamily: 'Poppins'),
+                        ),
                       ],
                     ),
                   ),
@@ -255,15 +259,16 @@ class ProfileScreenState extends State<ProfileScreen> {
                   child: IconButton(
                     onPressed: () {},
                     icon: Row(
-                      children: const [
-                        Icon(size: 35.0, Icons.settings),
-                        SizedBox(
+                      children: [
+                        const Icon(size: 35.0, Icons.settings),
+                        const SizedBox(
                           width: 10.0,
                         ),
                         Text(
-                            style: TextStyle(
-                                fontSize: 20.0, fontFamily: 'Poppins'),
-                            'My Settings'),
+                          AppLocale.of(context).translate('mySettings')!,
+                          style: const TextStyle(
+                              fontSize: 20.0, fontFamily: 'Poppins'),
+                        ),
                       ],
                     ),
                   ),
@@ -276,15 +281,16 @@ class ProfileScreenState extends State<ProfileScreen> {
                           .logout(preferences!, context);
                     },
                     icon: Row(
-                      children: const [
-                        Icon(size: 35.0, Icons.logout_outlined),
-                        SizedBox(
+                      children: [
+                        const Icon(size: 35.0, Icons.logout_outlined),
+                        const SizedBox(
                           width: 10.0,
                         ),
                         Text(
-                            style: TextStyle(
-                                fontSize: 20.0, fontFamily: 'Poppins'),
-                            'Logout'),
+                          AppLocale.of(context).translate('logout')!,
+                          style: const TextStyle(
+                              fontSize: 20.0, fontFamily: 'Poppins'),
+                        ),
                       ],
                     ),
                   ),

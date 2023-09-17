@@ -96,6 +96,7 @@
 
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, use_build_context_synchronously, unused_import
 
+import 'package:ecommerce_flutter_laravel/AppLocale.dart';
 import 'package:ecommerce_flutter_laravel/providers/cart_provider.dart';
 import 'package:ecommerce_flutter_laravel/screens/cart_screen.dart';
 import 'package:ecommerce_flutter_laravel/services/getProducts.dart';
@@ -148,7 +149,8 @@ class _HomeScreenState extends State<HomeScreen> {
               appBar: AppBar(
                 actions: [
                   Padding(
-                    padding: const EdgeInsets.only(right: 35.0, top: 20.0),
+                    padding:
+                        const EdgeInsets.only(right: 35.0, top: 20.0, left: 10),
                     child: Container(
                       width: 65.0,
                       decoration: BoxDecoration(
@@ -183,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Icons.shopping_cart_outlined,
                                 color: Colors.black,
                               ),
-                              SizedBox(width: 9),
+                              SizedBox(width: 5),
                               Text(
                                 '${cartProvider.cartItemsGetter.length}',
                                 style: TextStyle(color: Colors.black),
@@ -200,7 +202,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 title: Padding(
                   padding: const EdgeInsets.only(top: 20.0),
                   child: Text(
-                    'Home',
+                    AppLocale.of(context).translate('home')!,
                     style: TextStyle(fontFamily: 'Poppins', fontSize: 30.0),
                   ),
                 ),
@@ -237,7 +239,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             filled: true,
                             fillColor: Colors.white.withOpacity(0.19),
                             contentPadding: const EdgeInsets.only(top: 12.0),
-                            hintText: 'Markets,Category,....',
+                            hintText:
+                                "${AppLocale.of(context).translate('searchBar')!}",
                             hintStyle:
                                 TextStyle(color: Colors.white.withOpacity(0.5)),
                             prefixIcon: Icon(
@@ -288,7 +291,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             child:
                                 CircularProgressIndicator()); // Loading indicator
                       } else if (provider.products.isEmpty) {
-                        return Text('No products available.');
+                        return Text(AppLocale.of(context)
+                            .translate('noProductAvailable')!);
                       } else {
                         // Use ListView.builder to display the products
                         return GridView.builder(

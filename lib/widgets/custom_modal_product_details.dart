@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, unused_import
 
+import 'package:ecommerce_flutter_laravel/AppLocale.dart';
 import 'package:ecommerce_flutter_laravel/providers/cart_provider.dart';
 import 'package:ecommerce_flutter_laravel/screens/cart_screen.dart';
 import 'package:flutter/material.dart';
@@ -146,15 +147,10 @@ class CustomModal extends StatelessWidget {
                         priceB,
                         imageUrlB,
                       );
-
-                      // Navigate to the CartScreen when the user adds a product to the cart.
-                      // Navigator.of(context).push(MaterialPageRoute(
-                      //   builder: (context) => CartScreen(),
-                      // ));
                     },
-                    child: const Text(
-                      "Add to cart",
-                      style: TextStyle(
+                    child: Text(
+                      AppLocale.of(context).translate('addToCart')!,
+                      style: const TextStyle(
                           fontSize: 14.0,
                           color: Colors.white,
                           fontWeight: FontWeight.w400,

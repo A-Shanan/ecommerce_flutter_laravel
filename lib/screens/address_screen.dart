@@ -1,3 +1,6 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:ecommerce_flutter_laravel/AppLocale.dart';
 import 'package:ecommerce_flutter_laravel/providers/address_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -41,9 +44,9 @@ class _AddressScreenState extends State<AddressScreen> {
         child: AppBar(
           elevation: 0.0,
           scrolledUnderElevation: 1.0,
-          title: const Text(
-            'My Addresses',
-            style: TextStyle(fontFamily: 'Poppins', fontSize: 30.0),
+          title: Text(
+            AppLocale.of(context).translate('myAddresses')!,
+            style: const TextStyle(fontFamily: 'Poppins', fontSize: 30.0),
           ),
           flexibleSpace: Container(
             decoration: const BoxDecoration(
@@ -94,9 +97,9 @@ class _AddressScreenState extends State<AddressScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        'My Addresses',
-                        style: TextStyle(
+                      Text(
+                        AppLocale.of(context).translate('myAddresses')!,
+                        style: const TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold),

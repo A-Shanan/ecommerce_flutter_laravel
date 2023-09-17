@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:ecommerce_flutter_laravel/AppLocale.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -30,9 +31,9 @@ class AddressFormScreen extends StatelessWidget {
         child: AppBar(
           elevation: 0.0,
           scrolledUnderElevation: 1.0,
-          title: const Text(
-            'Add Addresses',
-            style: TextStyle(fontFamily: 'Poppins', fontSize: 30.0),
+          title: Text(
+            AppLocale.of(context).translate('addAddress')!,
+            style: const TextStyle(fontFamily: 'Poppins', fontSize: 30.0),
           ),
           flexibleSpace: Container(
             decoration: const BoxDecoration(
@@ -96,10 +97,12 @@ class AddressFormScreen extends StatelessWidget {
                             child: CustomTextFormField(
                               controllerField: firstNameController,
                               prefixIcon: const Icon(Icons.person_2_outlined),
-                              hintText: 'First Name',
+                              hintText:
+                                  AppLocale.of(context).translate('firstName')!,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'First Name must NOT be empty';
+                                  return AppLocale.of(context)
+                                      .translate('firstNameValidator')!;
                                 }
                                 return null;
                               },
@@ -127,10 +130,12 @@ class AddressFormScreen extends StatelessWidget {
                             child: CustomTextFormField(
                               controllerField: lastNameController,
                               prefixIcon: const Icon(Icons.person_2_outlined),
-                              hintText: 'Last Name',
+                              hintText:
+                                  AppLocale.of(context).translate('lastName')!,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Last Name must NOT be empty';
+                                  return AppLocale.of(context)
+                                      .translate('lastNameValidator')!;
                                 }
                                 return null;
                               },
@@ -162,11 +167,13 @@ class AddressFormScreen extends StatelessWidget {
                         ),
                         child: CustomTextFormField(
                           controllerField: addressLine1Controller,
-                          prefixIcon: const Icon(Icons.person_2_outlined),
-                          hintText: 'Address Line 1',
+                          prefixIcon: const Icon(Icons.home_work_outlined),
+                          hintText:
+                              AppLocale.of(context).translate('addressLine1')!,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Address line 1 must NOT be empty';
+                              return AppLocale.of(context)
+                                  .translate('addressLine1Validator')!;
                             }
                             return null;
                           },
@@ -196,11 +203,13 @@ class AddressFormScreen extends StatelessWidget {
                         ),
                         child: CustomTextFormField(
                           controllerField: addressLine2Controller,
-                          prefixIcon: const Icon(Icons.person_2_outlined),
-                          hintText: 'Address Line 2',
+                          prefixIcon: const Icon(Icons.home_work_outlined),
+                          hintText:
+                              AppLocale.of(context).translate('addressLine2')!,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Address line 2 must NOT be empty';
+                              return AppLocale.of(context)
+                                  .translate('addressLine2Validator')!;
                             }
                             return null;
                           },
@@ -230,11 +239,12 @@ class AddressFormScreen extends StatelessWidget {
                         ),
                         child: CustomTextFormField(
                           controllerField: cityController,
-                          prefixIcon: const Icon(Icons.person_2_outlined),
-                          hintText: 'City',
+                          prefixIcon: const Icon(Icons.home_work_outlined),
+                          hintText: AppLocale.of(context).translate('city')!,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'City must NOT be empty';
+                              return AppLocale.of(context)
+                                  .translate('cityValidator')!;
                             }
                             return null;
                           },
@@ -264,11 +274,12 @@ class AddressFormScreen extends StatelessWidget {
                         ),
                         child: CustomTextFormField(
                           controllerField: stateController,
-                          prefixIcon: const Icon(Icons.person_2_outlined),
-                          hintText: 'state',
+                          prefixIcon: const Icon(Icons.home_work_outlined),
+                          hintText: AppLocale.of(context).translate('state')!,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'state must NOT be empty';
+                              return AppLocale.of(context)
+                                  .translate('stateValidator')!;
                             }
                             return null;
                           },
@@ -298,11 +309,12 @@ class AddressFormScreen extends StatelessWidget {
                         ),
                         child: CustomTextFormField(
                           controllerField: zipCodeController,
-                          prefixIcon: const Icon(Icons.person_2_outlined),
-                          hintText: 'Zip Code',
+                          prefixIcon: const Icon(Icons.home_work_outlined),
+                          hintText: AppLocale.of(context).translate('zipCode')!,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Zip Code must NOT be empty';
+                              return AppLocale.of(context)
+                                  .translate('zipCodeValidator')!;
                             }
                             return null;
                           },
@@ -332,11 +344,12 @@ class AddressFormScreen extends StatelessWidget {
                         ),
                         child: CustomTextFormField(
                           controllerField: countryController,
-                          prefixIcon: const Icon(Icons.person_2_outlined),
-                          hintText: 'country',
+                          prefixIcon: const Icon(Icons.home_work_outlined),
+                          hintText: AppLocale.of(context).translate('country')!,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'country must NOT be empty';
+                              return AppLocale.of(context)
+                                  .translate('countryValidator')!;
                             }
                             return null;
                           },
@@ -393,9 +406,9 @@ class AddressFormScreen extends StatelessWidget {
                                     .then((_) => Navigator.of(context).pop());
                               }
                             },
-                            child: const Text(
-                              "Add",
-                              style: TextStyle(
+                            child: Text(
+                              AppLocale.of(context).translate('addButton')!,
+                              style: const TextStyle(
                                   fontSize: 26.0,
                                   color: Colors.white,
                                   fontWeight: FontWeight.w400,

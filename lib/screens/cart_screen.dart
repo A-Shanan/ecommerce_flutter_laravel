@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../AppLocale.dart';
 import '../providers/cart_provider.dart';
 import '../providers/order_provider.dart';
 
@@ -38,7 +39,7 @@ class _CartScreenState extends State<CartScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cart'),
+        title: Text(AppLocale.of(context).translate('cart')!),
       ),
       body: ListView.builder(
         itemCount: cartProvider.cartItemsGetter.length,
@@ -48,7 +49,7 @@ class _CartScreenState extends State<CartScreen> {
             isThreeLine: true,
             leading: Image.network(cartItem.imageUrl),
             title: Text(cartItem.productName),
-            subtitle: Text('Price: \$${cartItem.price.toStringAsFixed(2)}'),
+            subtitle: Text('\$${cartItem.price.toStringAsFixed(2)}'),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -85,7 +86,7 @@ class _CartScreenState extends State<CartScreen> {
             //     },
             //     icon: Icon(Icons.abc)),
             Text(
-              'Total: \$${cartProvider.calculateTotalPrice().toStringAsFixed(2)}',
+              '${AppLocale.of(context).translate('total')!}: \$${cartProvider.calculateTotalPrice().toStringAsFixed(2)}',
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             InkWell(
@@ -177,8 +178,9 @@ class _CartScreenState extends State<CartScreen> {
                                                   .cartItemsGetter.isEmpty) {
                                                 // Display a message when the list is empty
                                                 return Center(
-                                                  child: Text(
-                                                      'Your cart is empty.'),
+                                                  child: Text(AppLocale.of(
+                                                          context)
+                                                      .translate('cartEmpty')!),
                                                 );
                                               } else {
                                                 // Display the list items when there are items in the list
@@ -225,15 +227,18 @@ class _CartScreenState extends State<CartScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text('My Addresses'),
+                                          Text(AppLocale.of(context)
+                                              .translate('myAddresses')!),
                                           IconButton(
                                               onPressed: () {
                                                 showDialog(
                                                     context: context,
                                                     builder: (context) {
                                                       return AlertDialog(
-                                                        title: const Text(
-                                                            'Add an address'),
+                                                        title: Text(AppLocale
+                                                                .of(context)
+                                                            .translate(
+                                                                'myAddresses')!),
                                                       );
                                                     });
                                               },
@@ -253,8 +258,9 @@ class _CartScreenState extends State<CartScreen> {
                                               width: double.infinity,
                                               child: DropdownButton<
                                                   ShippingAddressItem>(
-                                                hint: Text(
-                                                    'Choose your shipping address'),
+                                                hint: Text(AppLocale.of(context)
+                                                    .translate(
+                                                        'chooseShippingAddress')!),
                                                 value: selectedAddress,
                                                 onChanged: (ShippingAddressItem?
                                                     newValue) {
@@ -280,7 +286,8 @@ class _CartScreenState extends State<CartScreen> {
                                               height: 15,
                                             ),
                                             Text(
-                                              'Payment Method',
+                                              AppLocale.of(context)
+                                                  .translate('paymentMethod')!,
                                               style: TextStyle(
                                                   fontSize: 20,
                                                   fontFamily: 'Poppins'),
@@ -311,10 +318,13 @@ class _CartScreenState extends State<CartScreen> {
                                                     cardNameController,
                                                 prefixIcon: const Icon(
                                                     Icons.person_2_outlined),
-                                                hintText: 'Name',
+                                                hintText: AppLocale.of(context)
+                                                    .translate('name')!,
                                                 validator: (value) {
                                                   if (value!.isEmpty) {
-                                                    return 'Name must NOT be empty';
+                                                    return AppLocale.of(context)
+                                                        .translate(
+                                                            'nameValidator')!;
                                                   }
                                                   return null;
                                                 },
@@ -357,10 +367,13 @@ class _CartScreenState extends State<CartScreen> {
                                                     cardNumberController,
                                                 prefixIcon: const Icon(
                                                     Icons.credit_card),
-                                                hintText: 'Card Number',
+                                                hintText: AppLocale.of(context)
+                                                    .translate('cardNumber')!,
                                                 validator: (value) {
                                                   if (value!.isEmpty) {
-                                                    return 'Card Number must NOT be empty';
+                                                    return AppLocale.of(context)
+                                                        .translate(
+                                                            'cardNumberValidator')!;
                                                   }
                                                   return null;
                                                 },
@@ -409,10 +422,15 @@ class _CartScreenState extends State<CartScreen> {
                                                         cardDateController,
                                                     prefixIcon: const Icon(Icons
                                                         .date_range_outlined),
-                                                    hintText: 'Card date',
+                                                    hintText: AppLocale.of(
+                                                            context)
+                                                        .translate('cardDate')!,
                                                     validator: (value) {
                                                       if (value!.isEmpty) {
-                                                        return 'Card date must NOT be empty';
+                                                        return AppLocale.of(
+                                                                context)
+                                                            .translate(
+                                                                'cardDateValidator')!;
                                                       }
                                                       return null;
                                                     },
@@ -456,10 +474,14 @@ class _CartScreenState extends State<CartScreen> {
                                                     hintText: 'CVV',
                                                     validator: (value) {
                                                       if (value!.isEmpty) {
-                                                        return 'CVV must NOT be empty';
+                                                        return AppLocale.of(
+                                                                context)
+                                                            .translate(
+                                                                'CVVValidator')!;
                                                       }
                                                       return null;
                                                     },
+                                                    obscureText: true,
                                                     contentPadding:
                                                         const EdgeInsets.only(
                                                             left: 10, top: 15),
@@ -538,8 +560,9 @@ class _CartScreenState extends State<CartScreen> {
                                         }
                                       }
                                     },
-                                    child: const Text(
-                                      "done",
+                                    child: Text(
+                                      AppLocale.of(context)
+                                          .translate('doneButton')!,
                                       style: TextStyle(
                                           fontSize: 14.0,
                                           color: Colors.white,
@@ -564,8 +587,8 @@ class _CartScreenState extends State<CartScreen> {
                         );
                       });
                 },
-                child: const Text(
-                  "Check out",
+                child: Text(
+                  AppLocale.of(context).translate('checkOut')!,
                   style: TextStyle(
                       fontSize: 14.0,
                       color: Colors.white,

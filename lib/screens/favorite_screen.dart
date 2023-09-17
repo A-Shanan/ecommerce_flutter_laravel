@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:ecommerce_flutter_laravel/AppLocale.dart';
 import 'package:ecommerce_flutter_laravel/providers/cart_provider.dart';
 import 'package:ecommerce_flutter_laravel/screens/cart_screen.dart';
 import 'package:ecommerce_flutter_laravel/services/wishlist.dart';
@@ -60,7 +61,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             child: AppBar(
               actions: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 35.0, top: 20.0),
+                  padding:
+                      const EdgeInsets.only(right: 35.0, top: 20.0, left: 10),
                   child: Container(
                     width: 65.0,
                     decoration: BoxDecoration(
@@ -107,10 +109,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               ],
               elevation: 0.0,
               scrolledUnderElevation: 1.0,
-              title: const Padding(
+              title: Padding(
                 padding: EdgeInsets.only(top: 20.0),
                 child: Text(
-                  'Favorite',
+                  AppLocale.of(context).translate('favorite')!,
                   style: TextStyle(fontFamily: 'Poppins', fontSize: 30.0),
                 ),
               ),
