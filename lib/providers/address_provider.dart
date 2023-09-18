@@ -31,7 +31,7 @@ class ShippingAddressItem {
   });
   factory ShippingAddressItem.fromJson(Map<String, dynamic> json) {
     return ShippingAddressItem(
-      id: json['id'] ?? 8,
+      id: json['id'],
       userId: json['user_id'],
       firstName: json['first_name'],
       lastName: json['last_name'],

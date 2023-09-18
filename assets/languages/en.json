@@ -20,11 +20,20 @@
   "doneButton":"Done",
   "checkOut":"Check out",
 
+  "transComp":"Transaction Completed SUCCESSFULLY",
+
   "favorite": "Favorite",
+
+  "appearance":"Appearance",
+  "light":"Light",
+  "dark":"Dark",
+  "language":"Languages",
+  "arabic":"Arabic",
+  "english":"English",
 
   "profile": "Profile",
   "myProfile": "My Profile",
-  "myCards": "My Cards",
+  "myOrders": "My Orders",
   "myAddresses": "My Addresses",
   "mySettings": "My Settings",
   "logout": "Logout",

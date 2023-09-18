@@ -1,6 +1,8 @@
 import 'package:ecommerce_flutter_laravel/nav_bar.dart';
 import 'package:flutter/material.dart';
 
+import '../AppLocale.dart';
+
 class DoneScreen extends StatefulWidget {
   const DoneScreen({super.key});
 
@@ -34,9 +36,9 @@ class _DoneScreenState extends State<DoneScreen> {
               height: MediaQuery.of(context).size.height / 2.5,
               width: MediaQuery.of(context).size.width / 1.1,
             ),
-            const Text(
-              'Transaction Completed SUCCESSFULLY',
-              style: TextStyle(fontSize: 15, fontFamily: 'poppins'),
+            Text(
+              AppLocale.of(context).translate('transComp')!,
+              style: const TextStyle(fontSize: 15, fontFamily: 'poppins'),
             ),
           ],
         ),

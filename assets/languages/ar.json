@@ -20,11 +20,20 @@
   "doneButton":"تم",
   "checkOut":"الدفع",
 
+  "transComp":"تمت عملية الدفع بنجاح",
+
   "favorite": "المفضلة",
+
+  "appearance":"المظهر",
+  "light":"فاتح",
+  "dark":"داكن",
+  "language":"اللغات",
+  "arabic":"عربي",
+  "english":"انكليزي",
 
   "profile": "الحساب",
   "myProfile": "حسابي",
-  "myCards": "بطاقاتي",
+  "myOrders": "طلباتي",
   "myAddresses": "عناويني",
   "mySettings": "اعداداتي",
   "logout": "تسجيل خروج",

@@ -2,6 +2,7 @@
 
 import 'package:ecommerce_flutter_laravel/AppLocale.dart';
 import 'package:ecommerce_flutter_laravel/providers/cart_provider.dart';
+import 'package:ecommerce_flutter_laravel/providers/theme_provider.dart';
 import 'package:ecommerce_flutter_laravel/screens/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -128,15 +129,8 @@ class CustomModal extends StatelessWidget {
                   // height: 40.0,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.0),
-                    gradient: const LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.topRight,
-                      colors: <Color>[
-                        Color(0xffFFB100),
-                        Color(0xffEEAE1C),
-                        Color(0xffF5A64F),
-                      ],
-                    ),
+                    gradient:
+                        Provider.of<ThemeProvider>(context).linearGradient,
                   ),
                   child: TextButton(
                     onPressed: () {

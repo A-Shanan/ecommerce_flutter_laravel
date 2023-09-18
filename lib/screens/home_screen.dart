@@ -98,6 +98,7 @@
 
 import 'package:ecommerce_flutter_laravel/AppLocale.dart';
 import 'package:ecommerce_flutter_laravel/providers/cart_provider.dart';
+import 'package:ecommerce_flutter_laravel/providers/theme_provider.dart';
 import 'package:ecommerce_flutter_laravel/screens/cart_screen.dart';
 import 'package:ecommerce_flutter_laravel/services/getProducts.dart';
 import 'package:ecommerce_flutter_laravel/widgets/custom_card.dart';
@@ -208,15 +209,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 flexibleSpace: Container(
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.topRight,
-                      colors: <Color>[
-                        Color(0xffFFB100),
-                        Color(0xffEEAE1C),
-                        Color(0xffF5A64F),
-                      ],
-                    ),
+                    gradient:
+                        Provider.of<ThemeProvider>(context).linearGradient,
                   ),
                 ),
                 bottom: PreferredSize(
@@ -240,7 +234,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             fillColor: Colors.white.withOpacity(0.19),
                             contentPadding: const EdgeInsets.only(top: 12.0),
                             hintText:
-                                "${AppLocale.of(context).translate('searchBar')!}",
+                                AppLocale.of(context).translate('searchBar')!,
                             hintStyle:
                                 TextStyle(color: Colors.white.withOpacity(0.5)),
                             prefixIcon: Icon(
@@ -263,15 +257,7 @@ class _HomeScreenState extends State<HomeScreen> {
               body: Container(
                 height: double.infinity,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.topRight,
-                    colors: <Color>[
-                      Color(0xffFFB100),
-                      Color(0xffEEAE1C),
-                      Color(0xffF5A64F),
-                    ],
-                  ),
+                  gradient: Provider.of<ThemeProvider>(context).linearGradient,
                 ),
                 child: Container(
                   height: MediaQuery.of(context).size.height * 1,
@@ -281,7 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30),
                     ),
-                    color: Color(0xffF5F5F5),
+                    color: Provider.of<ThemeProvider>(context).backgroundColor,
                   ),
                   child: Consumer<GetProducts>(
                     builder: (context, provider, child) {
@@ -296,12 +282,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       } else {
                         // Use ListView.builder to display the products
                         return GridView.builder(
+                          padding: EdgeInsets.only(top: 10),
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             crossAxisSpacing: 1.0,
-                            mainAxisExtent: 210,
-                            mainAxisSpacing: 4.0,
+                            mainAxisExtent: 220,
+                            mainAxisSpacing: 10.0,
                           ),
                           itemCount: provider.products.length,
                           itemBuilder: (context, index) {

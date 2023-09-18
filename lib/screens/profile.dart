@@ -2,8 +2,10 @@
 
 import 'package:ecommerce_flutter_laravel/AppLocale.dart';
 import 'package:ecommerce_flutter_laravel/providers/cart_provider.dart';
+import 'package:ecommerce_flutter_laravel/providers/theme_provider.dart';
 import 'package:ecommerce_flutter_laravel/screens/address_screen.dart';
 import 'package:ecommerce_flutter_laravel/screens/cart_screen.dart';
+import 'package:ecommerce_flutter_laravel/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -65,7 +67,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => CartScreen(),
+                        builder: (context) => const CartScreen(),
                       ),
                     );
                   },
@@ -82,7 +84,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                         const SizedBox(width: 9),
                         Text(
                           '${cartProvider.cartItemsGetter.length}',
-                          style: TextStyle(color: Colors.black),
+                          style: const TextStyle(color: Colors.black),
                         ),
                       ],
                     ),
@@ -94,50 +96,32 @@ class ProfileScreenState extends State<ProfileScreen> {
           elevation: 0.0,
           scrolledUnderElevation: 1.0,
           title: Padding(
-            padding: EdgeInsets.only(top: 20.0),
+            padding: const EdgeInsets.only(top: 20.0),
             child: Text(
               AppLocale.of(context).translate('profile')!,
-              style: TextStyle(fontFamily: 'Poppins', fontSize: 30.0),
+              style: const TextStyle(fontFamily: 'Poppins', fontSize: 30.0),
             ),
           ),
           flexibleSpace: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.topRight,
-                colors: <Color>[
-                  Color(0xffFFB100),
-                  Color(0xffEEAE1C),
-                  Color(0xffF5A64F),
-                ],
-              ),
-            ),
+            decoration: BoxDecoration(
+                gradient: Provider.of<ThemeProvider>(context).linearGradient),
           ),
         ),
       ),
       body: Container(
         height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.topRight,
-            colors: <Color>[
-              Color(0xffFFB100),
-              Color(0xffEEAE1C),
-              Color(0xffF5A64F),
-            ],
-          ),
-        ),
+        decoration: BoxDecoration(
+            gradient: Provider.of<ThemeProvider>(context).linearGradient),
         child: SingleChildScrollView(
           child: Container(
             width: double.infinity,
             height: 605.491,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(30),
                 topRight: Radius.circular(30),
               ),
-              color: Color(0xffF5F5F5),
+              color: Provider.of<ThemeProvider>(context).backgroundColor,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -197,14 +181,19 @@ class ProfileScreenState extends State<ProfileScreen> {
                     onPressed: () {},
                     icon: Row(
                       children: [
-                        const Icon(size: 35.0, Icons.person_2_outlined),
+                        const Icon(
+                          size: 35.0,
+                          Icons.person_2_outlined,
+                        ),
                         const SizedBox(
                           width: 10.0,
                         ),
                         Text(
                           AppLocale.of(context).translate('myProfile')!,
                           style: const TextStyle(
-                              fontSize: 20.0, fontFamily: 'Poppins'),
+                            fontSize: 20.0,
+                            fontFamily: 'Poppins',
+                          ),
                         ),
                       ],
                     ),
@@ -216,14 +205,19 @@ class ProfileScreenState extends State<ProfileScreen> {
                     onPressed: () {},
                     icon: Row(
                       children: [
-                        const Icon(size: 35.0, Icons.credit_card_outlined),
+                        const Icon(
+                          size: 35.0,
+                          Icons.storage_rounded,
+                        ),
                         const SizedBox(
                           width: 10.0,
                         ),
                         Text(
-                          AppLocale.of(context).translate('myCards')!,
+                          AppLocale.of(context).translate('myOrders')!,
                           style: const TextStyle(
-                              fontSize: 20.0, fontFamily: 'myCards'),
+                            fontSize: 20.0,
+                            fontFamily: 'Poppins',
+                          ),
                         ),
                       ],
                     ),
@@ -234,7 +228,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                   child: IconButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => AddressScreen()));
+                          builder: (context) => const AddressScreen()));
                     },
                     icon: Row(
                       children: [
@@ -248,26 +242,9 @@ class ProfileScreenState extends State<ProfileScreen> {
                         Text(
                           AppLocale.of(context).translate('myAddresses')!,
                           style: const TextStyle(
-                              fontSize: 20.0, fontFamily: 'Poppins'),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Row(
-                      children: [
-                        const Icon(size: 35.0, Icons.settings),
-                        const SizedBox(
-                          width: 10.0,
-                        ),
-                        Text(
-                          AppLocale.of(context).translate('mySettings')!,
-                          style: const TextStyle(
-                              fontSize: 20.0, fontFamily: 'Poppins'),
+                            fontSize: 20.0,
+                            fontFamily: 'Poppins',
+                          ),
                         ),
                       ],
                     ),
@@ -277,8 +254,38 @@ class ProfileScreenState extends State<ProfileScreen> {
                   width: double.infinity,
                   child: IconButton(
                     onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const SettingsScreen(),
+                        ),
+                      );
+                    },
+                    icon: Row(
+                      children: [
+                        const Icon(size: 35.0, Icons.settings),
+                        const SizedBox(
+                          width: 10.0,
+                        ),
+                        Text(
+                          AppLocale.of(context).translate('mySettings')!,
+                          style: const TextStyle(
+                            fontSize: 20.0,
+                            fontFamily: 'Poppins',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: IconButton(
+                    onPressed: () async {
+                      SharedPreferences preferences =
+                          await SharedPreferences.getInstance();
+                      String? token = preferences.getString('token');
                       Provider.of<Auth>(context, listen: false)
-                          .logout(preferences!, context);
+                          .logout(preferences, context, token!);
                     },
                     icon: Row(
                       children: [
@@ -289,7 +296,9 @@ class ProfileScreenState extends State<ProfileScreen> {
                         Text(
                           AppLocale.of(context).translate('logout')!,
                           style: const TextStyle(
-                              fontSize: 20.0, fontFamily: 'Poppins'),
+                            fontSize: 20.0,
+                            fontFamily: 'Poppins',
+                          ),
                         ),
                       ],
                     ),

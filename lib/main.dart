@@ -6,6 +6,7 @@ import 'package:ecommerce_flutter_laravel/providers/address_provider.dart';
 import 'package:ecommerce_flutter_laravel/providers/cart_provider.dart';
 import 'package:ecommerce_flutter_laravel/providers/language_provider.dart';
 import 'package:ecommerce_flutter_laravel/providers/order_provider.dart';
+import 'package:ecommerce_flutter_laravel/providers/theme_provider.dart';
 import 'package:ecommerce_flutter_laravel/screens/home_screen.dart';
 import 'package:ecommerce_flutter_laravel/screens/login_screen.dart';
 import 'package:ecommerce_flutter_laravel/screens/registeration_screen.dart';
@@ -28,6 +29,7 @@ void main() {
       ChangeNotifierProvider(create: (context) => OrderProvider()),
       ChangeNotifierProvider(create: (context) => AddressProvider()),
       ChangeNotifierProvider(create: (context) => LanguageProvider()),
+      ChangeNotifierProvider(create: (context) => ThemeProvider()),
       // ChangeNotifierProvider<LanguageProvider>(create: (_) => LanguageProvider()),//try it later
     ],
     child: const MyApp(),
@@ -46,16 +48,19 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     Provider.of<LanguageProvider>(context, listen: false).initialazie();
-    // Provider.of<ThemeProvider>(context,listen: false).initialazie();
+    Provider.of<ThemeProvider>(context, listen: false).initialazie();
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: Provider.of<ThemeProvider>(context).theme == 'light'
+          ? ThemeData.light()
+          : ThemeData.dark(),
+      // theme: ThemeData(
+      //   primarySwatch: Colors.blue,
+      // ),
       debugShowCheckedModeBanner: false,
       localizationsDelegates: [
         GlobalWidgetsLocalizations.delegate,

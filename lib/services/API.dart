@@ -19,6 +19,15 @@ class API {
     });
   }
 
+  postRequestL(String route, String token) async {
+    String url = "http://192.168.137.1:8000/api/v1$route";
+    return await http.post(Uri.parse(url), headers: {
+      "Authorization": "Bearer $token",
+      'Content-type': 'application/json',
+      'Accept': 'application/json'
+    });
+  }
+
   postRequestToken(
       String route, Map<String, dynamic> data, String token) async {
     String url = "http://192.168.137.1:8000/api/v1$route";

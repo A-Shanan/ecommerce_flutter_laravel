@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:ecommerce_flutter_laravel/AppLocale.dart';
+import 'package:ecommerce_flutter_laravel/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,17 +37,8 @@ class AddressFormScreen extends StatelessWidget {
             style: const TextStyle(fontFamily: 'Poppins', fontSize: 30.0),
           ),
           flexibleSpace: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.topRight,
-                colors: <Color>[
-                  Color(0xffFFB100),
-                  Color(0xffEEAE1C),
-                  Color(0xffF5A64F),
-                ],
-              ),
-            ),
+            decoration: BoxDecoration(
+                gradient: Provider.of<ThemeProvider>(context).linearGradient),
           ),
         ),
       ),
@@ -54,26 +46,17 @@ class AddressFormScreen extends StatelessWidget {
         key: formKey,
         child: Container(
           height: double.infinity,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.topRight,
-              colors: <Color>[
-                Color(0xffFFB100),
-                Color(0xffEEAE1C),
-                Color(0xffF5A64F),
-              ],
-            ),
-          ),
+          decoration: BoxDecoration(
+              gradient: Provider.of<ThemeProvider>(context).linearGradient),
           child: Container(
             width: double.infinity,
             height: MediaQuery.of(context).size.height * 1,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(30),
                 topRight: Radius.circular(30),
               ),
-              color: Color(0xffF5F5F5),
+              color: Provider.of<ThemeProvider>(context).backgroundColor,
             ),
             child: Padding(
               padding: const EdgeInsets.only(left: 10.0, right: 10, top: 15),
@@ -372,17 +355,9 @@ class AddressFormScreen extends StatelessWidget {
                         child: Container(
                           height: 60.0,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12.0),
-                            gradient: const LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.topRight,
-                              colors: <Color>[
-                                Color(0xffFFB100),
-                                Color(0xffEEAE1C),
-                                Color(0xffF5A64F),
-                              ],
-                            ),
-                          ),
+                              borderRadius: BorderRadius.circular(12.0),
+                              gradient: Provider.of<ThemeProvider>(context)
+                                  .linearGradient),
                           child: TextButton(
                             onPressed: () async {
                               SharedPreferences preferences =

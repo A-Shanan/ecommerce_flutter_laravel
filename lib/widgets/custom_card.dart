@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print, unused_import
 
+import 'package:ecommerce_flutter_laravel/providers/theme_provider.dart';
 import 'package:ecommerce_flutter_laravel/services/wishlist.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,9 +27,16 @@ class CustomCard extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width / 2.2,
         height: MediaQuery.of(context).size.height / 3,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(30)),
-          color: Colors.amber,
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(30)),
+          color: Provider.of<ThemeProvider>(context).backgroundColorCard,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.02),
+              blurRadius: 4,
+              offset: const Offset(4, 8),
+            ),
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

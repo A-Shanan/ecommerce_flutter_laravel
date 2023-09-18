@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import, unused_local_variable, prefer_const_constructors, avoid_print
 
 import 'package:ecommerce_flutter_laravel/providers/address_provider.dart';
+import 'package:ecommerce_flutter_laravel/providers/theme_provider.dart';
 import 'package:ecommerce_flutter_laravel/screens/done_screen.dart';
 import 'package:ecommerce_flutter_laravel/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
@@ -38,38 +39,69 @@ class _CartScreenState extends State<CartScreen> {
     final formKey = GlobalKey<FormState>();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocale.of(context).translate('cart')!),
-      ),
-      body: ListView.builder(
-        itemCount: cartProvider.cartItemsGetter.length,
-        itemBuilder: (context, index) {
-          final cartItem = cartProvider.cartItemsGetter[index];
-          return ListTile(
-            isThreeLine: true,
-            leading: Image.network(cartItem.imageUrl),
-            title: Text(cartItem.productName),
-            subtitle: Text('\$${cartItem.price.toStringAsFixed(2)}'),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  icon: Icon(Icons.remove),
-                  onPressed: () {
-                    cartProvider.decreaseQuantity(index);
-                  },
-                ),
-                Text('${cartItem.quantity}'),
-                IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: () {
-                    cartProvider.increaseQuantity(index);
-                  },
-                ),
-              ],
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(80.0),
+        child: AppBar(
+          elevation: 0.0,
+          scrolledUnderElevation: 1.0,
+          title: Padding(
+            padding: EdgeInsets.only(top: 20.0),
+            child: Text(
+              AppLocale.of(context).translate('cart')!,
+              style: TextStyle(fontFamily: 'Poppins', fontSize: 30.0),
             ),
-          );
-        },
+          ),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                gradient: Provider.of<ThemeProvider>(context).linearGradient),
+          ),
+        ),
+      ),
+      body: Container(
+        height: double.infinity,
+        decoration: BoxDecoration(
+            gradient: Provider.of<ThemeProvider>(context).linearGradient),
+        child: Container(
+          width: double.infinity,
+          height: 605.491,
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+            ),
+            color: Provider.of<ThemeProvider>(context).backgroundColor,
+          ),
+          child: ListView.builder(
+            itemCount: cartProvider.cartItemsGetter.length,
+            itemBuilder: (context, index) {
+              final cartItem = cartProvider.cartItemsGetter[index];
+              return ListTile(
+                isThreeLine: true,
+                leading: Image.network(cartItem.imageUrl),
+                title: Text(cartItem.productName),
+                subtitle: Text('\$${cartItem.price.toStringAsFixed(2)}'),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.remove),
+                      onPressed: () {
+                        cartProvider.decreaseQuantity(index);
+                      },
+                    ),
+                    Text('${cartItem.quantity}'),
+                    IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () {
+                        cartProvider.increaseQuantity(index);
+                      },
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
       ),
       bottomNavigationBar: Padding(
         padding: EdgeInsets.all(16.0),
@@ -103,15 +135,7 @@ class _CartScreenState extends State<CartScreen> {
               // height: 40.0,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.0),
-                gradient: const LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.topRight,
-                  colors: <Color>[
-                    Color(0xffFFB100),
-                    Color(0xffEEAE1C),
-                    Color(0xffF5A64F),
-                  ],
-                ),
+                gradient: Provider.of<ThemeProvider>(context).linearGradient,
               ),
               child: TextButton(
                 onPressed: () async {
@@ -508,15 +532,9 @@ class _CartScreenState extends State<CartScreen> {
                                       MediaQuery.of(context).size.height / 20,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(12.0),
-                                    gradient: const LinearGradient(
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.topRight,
-                                      colors: <Color>[
-                                        Color(0xffFFB100),
-                                        Color(0xffEEAE1C),
-                                        Color(0xffF5A64F),
-                                      ],
-                                    ),
+                                    gradient:
+                                        Provider.of<ThemeProvider>(context)
+                                            .linearGradient,
                                   ),
                                   child: TextButton(
                                     onPressed: () async {

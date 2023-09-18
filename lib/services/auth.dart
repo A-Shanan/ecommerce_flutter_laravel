@@ -83,13 +83,20 @@ class Auth extends ChangeNotifier {
   //   storage.write(key: 'token', value: token);
   // }
 
-  void logout(SharedPreferences pref, BuildContext context) {
-    pref.clear();
-    isLoggedIn = false;
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const LoginScreen()),
-    );
-    notifyListeners();
+  void logout(
+      SharedPreferences pref, BuildContext context, String token) async {
+    try {
+      pref.clear();
+      final result = await API().postRequestL("/logout", token);
+      print("result: $result");
+      isLoggedIn = false;
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
+      );
+      notifyListeners();
+    } catch (error) {
+      print(['error logout: $error']);
+    }
   }
 }

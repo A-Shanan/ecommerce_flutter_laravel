@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, use_key_in_widget_constructors
 
+import 'package:ecommerce_flutter_laravel/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../providers/cart_provider.dart';
 
 class CustomBottomSheet extends StatelessWidget {
@@ -71,15 +73,7 @@ class CustomBottomSheet extends StatelessWidget {
             height: MediaQuery.of(context).size.height / 20,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
-              gradient: const LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.topRight,
-                colors: <Color>[
-                  Color(0xffFFB100),
-                  Color(0xffEEAE1C),
-                  Color(0xffF5A64F),
-                ],
-              ),
+              gradient: Provider.of<ThemeProvider>(context).linearGradient,
             ),
             child: TextButton(
               onPressed: () {

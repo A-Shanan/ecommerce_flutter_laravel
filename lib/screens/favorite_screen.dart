@@ -2,6 +2,7 @@
 
 import 'package:ecommerce_flutter_laravel/AppLocale.dart';
 import 'package:ecommerce_flutter_laravel/providers/cart_provider.dart';
+import 'package:ecommerce_flutter_laravel/providers/theme_provider.dart';
 import 'package:ecommerce_flutter_laravel/screens/cart_screen.dart';
 import 'package:ecommerce_flutter_laravel/services/wishlist.dart';
 import 'package:flutter/material.dart';
@@ -30,10 +31,18 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     setState(() {
       isLoading = true;
     });
+    // SharedPreferences preferences =
+    //     await preferencesFuture!; // Use the preferences once it has completed
+    // String? token = preferences.getString('token');
+    // Provider.of<Wishlist>(context, listen: false).getWishlist(token);
     SharedPreferences preferences =
         await preferencesFuture!; // Use the preferences once it has completed
     String? token = preferences.getString('token');
-    Provider.of<Wishlist>(context, listen: false).getWishlist(token);
+
+    // Ensure you have the correct token before making the API call
+    if (token != null) {
+      Provider.of<Wishlist>(context, listen: false).getWishlist(token);
+    }
     setState(() {
       isLoading = false;
     });
@@ -70,7 +79,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         BoxShadow(
                           color: Colors.black.withOpacity(0.02),
                           blurRadius: 4,
-                          offset: Offset(4, 8), // Shadow position
+                          offset: Offset(4, 8),
                         ),
                       ],
                       color: Colors.white,
@@ -117,42 +126,25 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 ),
               ),
               flexibleSpace: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.topRight,
-                    colors: <Color>[
-                      Color(0xffFFB100),
-                      Color(0xffEEAE1C),
-                      Color(0xffF5A64F),
-                    ],
-                  ),
-                ),
+                decoration: BoxDecoration(
+                    gradient:
+                        Provider.of<ThemeProvider>(context).linearGradient),
               ),
             ),
           ),
           body: Container(
             height: double.infinity,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.topRight,
-                colors: <Color>[
-                  Color(0xffFFB100),
-                  Color(0xffEEAE1C),
-                  Color(0xffF5A64F),
-                ],
-              ),
-            ),
+            decoration: BoxDecoration(
+                gradient: Provider.of<ThemeProvider>(context).linearGradient),
             child: Container(
               width: double.infinity,
               height: 605.491,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30),
                   topRight: Radius.circular(30),
                 ),
-                color: Color(0xffF5F5F5),
+                color: Provider.of<ThemeProvider>(context).backgroundColor,
               ),
               child: Padding(
                 padding: const EdgeInsets.only(top: 15.0, left: 8, right: 8),
@@ -206,7 +198,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                 style: const TextStyle(
                                     fontFamily: 'Poppins', fontSize: 13),
                               ),
-                              // Add more widgets to display other information
                             ),
                           ),
                         );

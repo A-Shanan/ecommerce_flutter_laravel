@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:ecommerce_flutter_laravel/providers/theme_provider.dart';
 import 'package:ecommerce_flutter_laravel/screens/home_screen.dart';
 import 'package:ecommerce_flutter_laravel/screens/registeration_screen.dart';
 import 'package:ecommerce_flutter_laravel/services/auth.dart';
@@ -217,15 +218,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 60.0,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12.0),
-                            gradient: const LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.topRight,
-                              colors: <Color>[
-                                Color(0xffFFB100),
-                                Color(0xffEEAE1C),
-                                Color(0xffF5A64F),
-                              ],
-                            ),
+                            gradient: Provider.of<ThemeProvider>(context)
+                                .linearGradient,
                           ),
                           child: TextButton(
                             onPressed: () {

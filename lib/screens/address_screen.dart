@@ -2,6 +2,7 @@
 
 import 'package:ecommerce_flutter_laravel/AppLocale.dart';
 import 'package:ecommerce_flutter_laravel/providers/address_provider.dart';
+import 'package:ecommerce_flutter_laravel/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -49,119 +50,107 @@ class _AddressScreenState extends State<AddressScreen> {
             style: const TextStyle(fontFamily: 'Poppins', fontSize: 30.0),
           ),
           flexibleSpace: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.topRight,
-                colors: <Color>[
-                  Color(0xffFFB100),
-                  Color(0xffEEAE1C),
-                  Color(0xffF5A64F),
-                ],
-              ),
-            ),
+            decoration: BoxDecoration(
+                gradient: Provider.of<ThemeProvider>(context).linearGradient),
           ),
         ),
       ),
       body: Container(
         height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.topRight,
-            colors: <Color>[
-              Color(0xffFFB100),
-              Color(0xffEEAE1C),
-              Color(0xffF5A64F),
-            ],
-          ),
-        ),
+        decoration: BoxDecoration(
+            gradient: Provider.of<ThemeProvider>(context).linearGradient),
         child: Container(
           width: double.infinity,
           height: MediaQuery.of(context).size.height * 1,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(30),
               topRight: Radius.circular(30),
             ),
-            color: Color(0xffF5F5F5),
+            color: Provider.of<ThemeProvider>(context).backgroundColor,
           ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              // mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: ListView(
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        AppLocale.of(context).translate('myAddresses')!,
-                        style: const TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            AppLocale.of(context).translate('myAddresses')!,
+                            style: const TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => AddressFormScreen()));
+                              },
+                              icon: const Icon(
+                                Icons.add_circle_outline_sharp,
+                                size: 30,
+                                color: Color(0xffFFB100),
+                              ))
+                        ],
                       ),
-                      IconButton(
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => AddressFormScreen()));
-                          },
-                          icon: const Icon(
-                            Icons.add_circle_outline_sharp,
-                            size: 30,
-                            color: Color(0xffFFB100),
-                          ))
-                    ],
-                  ),
-                ),
-                // ListView.builder(
-                //   itemCount: 2,
-                //   itemBuilder: itemBuilder
-                // ),
-                Container(
-                  height: MediaQuery.of(context).size.height / 2,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
                     ),
-                    color: Color(0xffF5F5F5),
-                  ),
-                  child: Consumer<AddressProvider>(
-                      builder: (context, provider, child) {
-                    if (provider.shippingAddressItems.isEmpty) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else if (provider.shippingAddressItems.isEmpty) {
-                      return const Center(child: Text('No Address Availabe.'));
-                    } else {
-                      return ListView.builder(
-                          itemCount: provider.shippingAddressItems.length,
-                          itemBuilder: (context, index) {
-                            final shippingaddress =
-                                provider.shippingAddressItems[index];
-                            return ExpansionTile(
-                              title: Text(
-                                  "${shippingaddress.firstName.toString()} ${shippingaddress.lastName.toString()}"),
-                              trailing: IconButton(
-                                onPressed: () {
-                                  _editDialog(context, shippingaddress);
-                                },
-                                icon: const Icon(Icons.edit),
-                              ),
-                              children: [
-                                Text(
-                                    "${shippingaddress.addressLine1.toString()}, ${shippingaddress.addressLine2.toString()}, ${shippingaddress.city.toString()}, ${shippingaddress.state.toString()}, ${shippingaddress.city.toString()}, ${shippingaddress.zipCode.toString()}, ${shippingaddress.country.toString()}")
-                              ],
-                            );
-                          });
-                    }
-                  }),
+                    // ListView.builder(
+                    //   itemCount: 2,
+                    //   itemBuilder: itemBuilder
+                    // ),
+                    Container(
+                      height: MediaQuery.of(context).size.height / 2,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          topRight: Radius.circular(30),
+                        ),
+                        color:
+                            Provider.of<ThemeProvider>(context).backgroundColor,
+                      ),
+                      child: Consumer<AddressProvider>(
+                          builder: (context, provider, child) {
+                        if (provider.shippingAddressItems.isEmpty) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else if (provider.shippingAddressItems.isNotEmpty) {
+                          return ListView.builder(
+                            itemCount: provider.shippingAddressItems.length,
+                            itemBuilder: (context, index) {
+                              final shippingaddress =
+                                  provider.shippingAddressItems[index];
+                              return ExpansionTile(
+                                title: Text(
+                                    "${shippingaddress.firstName.toString()} ${shippingaddress.lastName.toString()}"),
+                                trailing: IconButton(
+                                  onPressed: () {
+                                    _editDialog(context, shippingaddress);
+                                  },
+                                  icon: const Icon(Icons.edit),
+                                ),
+                                children: [
+                                  Text(
+                                      "${shippingaddress.addressLine1.toString()}, ${shippingaddress.addressLine2.toString()}, ${shippingaddress.city.toString()}, ${shippingaddress.state.toString()}, ${shippingaddress.city.toString()}, ${shippingaddress.zipCode.toString()}, ${shippingaddress.country.toString()}")
+                                ],
+                              );
+                            },
+                          );
+                        } else {
+                          return const Center(
+                              child: Text('No Address Availabe.'));
+                        }
+                      }),
+                    ),
+                  ],
                 ),
               ],
             ),
