@@ -17,13 +17,12 @@ class FavoriteScreen extends StatefulWidget {
 }
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
-  // late SharedPreferences preferences;
   Future<SharedPreferences>? preferencesFuture;
   bool isLoading = false;
   @override
   void initState() {
     super.initState();
-    preferencesFuture = SharedPreferences.getInstance(); // Step 3
+    preferencesFuture = SharedPreferences.getInstance();
     getWishlistData();
   }
 
@@ -31,15 +30,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     setState(() {
       isLoading = true;
     });
-    // SharedPreferences preferences =
-    //     await preferencesFuture!; // Use the preferences once it has completed
-    // String? token = preferences.getString('token');
-    // Provider.of<Wishlist>(context, listen: false).getWishlist(token);
-    SharedPreferences preferences =
-        await preferencesFuture!; // Use the preferences once it has completed
+    SharedPreferences preferences = await preferencesFuture!;
     String? token = preferences.getString('token');
-
-    // Ensure you have the correct token before making the API call
     if (token != null) {
       Provider.of<Wishlist>(context, listen: false).getWishlist(token);
     }
@@ -51,19 +43,14 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<SharedPreferences>(
-      future:
-          preferencesFuture, // Use the preferencesFuture in the FutureBuilder
+      future: preferencesFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
-          // Show a loading indicator while preferences are being initialized
           return Center(child: CircularProgressIndicator());
         }
         SharedPreferences preferences = snapshot.data!;
         String? token = preferences.getString('token');
         final cartProvider = Provider.of<CartProvider>(context);
-        // final getWishlistProvider = Provider.of<Wishlist>(context);
-        // getWishlistProvider.getWishlist(token);
-
         return Scaffold(
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(80.0),
@@ -149,19 +136,15 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 15.0, left: 8, right: 8),
                 child: Consumer<Wishlist>(
-                  // Wrap the ListView.builder with Consumer
                   builder: (context, wishlist, child) {
-                    // Use the wishlist data to build the ListView
                     return ListView.builder(
                       itemCount: wishlist.wishlists.length,
                       itemBuilder: (context, index) {
                         final item = wishlist.wishlists[index];
-                        // Build your list item here using the item data
                         return Dismissible(
-                          key: UniqueKey(), // Use a unique key for each item
+                          key: UniqueKey(),
                           background: Container(
-                            color: Colors
-                                .red, // Background color when swiping left
+                            color: Colors.red,
                             alignment: Alignment.centerRight,
                             padding: EdgeInsets.only(right: 20.0),
                             child: Icon(
@@ -170,11 +153,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             ),
                           ),
                           onDismissed: (direction) {
-                            // Remove the item from the wishlist when swiped
                             wishlist.deleteWishlist(token, item['id'] as int);
                           },
                           child: Card(
-                            // margin: EdgeInsets.all(5),
                             child: ListTile(
                               isThreeLine: true,
                               leading: Image.network(

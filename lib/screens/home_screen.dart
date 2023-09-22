@@ -1,4 +1,8 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, use_build_context_synchronously, unused_import
+// ignore_for_file: use_build_context_synchronously, avoid_print
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:ecommerce_flutter_laravel/AppLocale.dart';
 import 'package:ecommerce_flutter_laravel/providers/cart_provider.dart';
@@ -7,14 +11,8 @@ import 'package:ecommerce_flutter_laravel/screens/cart_screen.dart';
 import 'package:ecommerce_flutter_laravel/services/getProducts.dart';
 import 'package:ecommerce_flutter_laravel/widgets/custom_card.dart';
 import 'package:ecommerce_flutter_laravel/widgets/custom_modal_product_details.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../providers/review_provider.dart';
-import '../services/API.dart';
-import '../services/auth.dart';
-// import 'package:marketapp/screen/category_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -52,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
       future: getUserData(),
       builder: (context, snapshot) {
         if (isLoading) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else {
           return Scaffold(
             appBar: AppBar(
@@ -67,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         BoxShadow(
                           color: Colors.black.withOpacity(0.02),
                           blurRadius: 4,
-                          offset: Offset(4, 8),
+                          offset: const Offset(4, 8),
                         ),
                       ],
                       color: Colors.white,
@@ -80,24 +78,24 @@ class _HomeScreenState extends State<HomeScreen> {
                         print(preferences.getString('email'));
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => CartScreen(),
+                            builder: (context) => const CartScreen(),
                           ),
                         );
                       },
                       child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 8),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.shopping_cart_outlined,
                               color: Colors.black,
                             ),
-                            SizedBox(width: 5),
+                            const SizedBox(width: 5),
                             Text(
                               '${cartProvider.cartItemsGetter.length}',
-                              style: TextStyle(color: Colors.black),
+                              style: const TextStyle(color: Colors.black),
                             ),
                           ],
                         ),
@@ -112,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.only(top: 20.0),
                 child: Text(
                   AppLocale.of(context).translate('home')!,
-                  style: TextStyle(fontFamily: 'Poppins', fontSize: 30.0),
+                  style: const TextStyle(fontFamily: 'Poppins', fontSize: 30.0),
                 ),
               ),
               flexibleSpace: Container(
@@ -150,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 AppLocale.of(context).translate('searchBar')!,
                             hintStyle:
                                 TextStyle(color: Colors.white.withOpacity(0.5)),
-                            prefixIcon: Icon(
+                            prefixIcon: const Icon(
                               Icons.search,
                               color: Colors.white,
                             ),
@@ -168,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               borderSide: BorderSide(
                                 color: Colors.white.withOpacity(0.00001),
                               ),
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(12),
                               ),
                             ),
@@ -176,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               borderSide: BorderSide(
                                 color: Colors.white.withOpacity(0.00001),
                               ),
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(12),
                               ),
                             ),
@@ -202,14 +200,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           final searchResults = getProductsProvider
                               .searchProducts(searchController.text);
                           if (searchResults.isEmpty) {
-                            return Center(child: CircularProgressIndicator());
+                            return const Center(
+                                child: CircularProgressIndicator());
                           } else if (searchResults.isEmpty) {
-                            return Center(child: Text('no product'));
+                            return const Center(child: Text('no product'));
                           } else {
                             return GridView.builder(
-                              padding: EdgeInsets.only(top: 10),
+                              padding: const EdgeInsets.only(top: 10),
                               gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
                                 crossAxisSpacing: 1.0,
                                 mainAxisExtent: 220,
@@ -218,10 +217,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemCount: searchResults.length,
                               itemBuilder: (context, index) {
                                 final product = searchResults[index];
-
-                                // final revProv =
-                                //     reviewProvider.getAllReviews(product['id']);
-                                // final rev = revProv[product['id']];
                                 return GestureDetector(
                                   onTap: () async {
                                     SharedPreferences pref =
@@ -230,7 +225,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     showModalBottomSheet(
                                       isScrollControlled: true,
                                       context: context,
-                                      shape: RoundedRectangleBorder(
+                                      shape: const RoundedRectangleBorder(
                                         borderRadius: BorderRadius.vertical(
                                           top: Radius.circular(20),
                                         ),

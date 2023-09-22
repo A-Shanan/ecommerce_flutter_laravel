@@ -1,8 +1,10 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, use_key_in_widget_constructors
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables
 
-import 'package:ecommerce_flutter_laravel/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'package:ecommerce_flutter_laravel/providers/theme_provider.dart';
+
 import '../providers/cart_provider.dart';
 
 class CustomBottomSheet extends StatelessWidget {
@@ -17,7 +19,6 @@ class CustomBottomSheet extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Add your custom bottom sheet content here
           Column(
             children: [
               Row(
@@ -27,12 +28,12 @@ class CustomBottomSheet extends StatelessWidget {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Icon(Icons.highlight_remove_sharp),
+                    icon: const Icon(Icons.highlight_remove_sharp),
                   )
                 ],
               ),
               Container(
-                constraints: BoxConstraints(
+                constraints: const BoxConstraints(
                   maxHeight: 200.0,
                 ),
                 child: ListView.builder(
@@ -49,14 +50,14 @@ class CustomBottomSheet extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           IconButton(
-                            icon: Icon(Icons.remove),
+                            icon: const Icon(Icons.remove),
                             onPressed: () {
                               cartProvider.decreaseQuantity(index);
                             },
                           ),
                           Text('${cartItem.quantity}'),
                           IconButton(
-                            icon: Icon(Icons.add),
+                            icon: const Icon(Icons.add),
                             onPressed: () {
                               cartProvider.increaseQuantity(index);
                             },
@@ -76,9 +77,7 @@ class CustomBottomSheet extends StatelessWidget {
               gradient: Provider.of<ThemeProvider>(context).linearGradient,
             ),
             child: TextButton(
-              onPressed: () {
-                // Add your custom button action here
-              },
+              onPressed: () {},
               child: const Text(
                 "done",
                 style: TextStyle(

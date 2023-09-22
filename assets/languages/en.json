@@ -84,6 +84,7 @@
   "countryValidator": "country must NOT be empty",
   "addButton": "Add",
   "noAddress": "No Address available, press + button to add",
+  "editAddress": "Edit Address",
   "noReview": "No Reviews available for this product"
 
 }

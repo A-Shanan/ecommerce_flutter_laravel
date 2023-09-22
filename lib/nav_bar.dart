@@ -16,12 +16,6 @@ class NavBar extends StatefulWidget {
 int _currentIndex = 0;
 
 class _NavBarState extends State<NavBar> {
-  // /// Controller to handle PageView and also handles initial page
-  // final _pageController = PageController(initialPage: 0);
-
-  // //int maxCount = 5;
-
-  // /// widget list
   final List selectedTab = [
     const HomeScreen(),
     FavoriteScreen(),
@@ -29,92 +23,6 @@ class _NavBarState extends State<NavBar> {
     const Testt()
   ];
 
-  // @override
-  // void dispose() {
-  //   _pageController.dispose();
-  //   super.dispose();
-  // }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
-
-  // // var selectedTab = selectedTab.HomeScreen;
-
-  // // void _handleIndexChanged(int i) {
-  // //   setState(() {
-  // //     selectedTab = selectedTab.values[i];
-  // //   });
-  // // }
-
-  // // var navigation = [
-  // //   HomeScreen(),
-  // //   FavoriteScreen(),
-  // //   CategoryScreen(),
-  // //   MarketScreen(),
-  // //   ProfileScreen()
-  // // ];
-  // final pages = [
-  //   const HomeScreen(),
-  //   FavoriteScreen(),
-  //   CategoryScreen(),
-  //   MarketScreen(),
-  //   ProfileScreen()
-  // ];
-  // void changePage(int index) {
-  //   setState(() {
-  //     _currentIndex = index;
-  //   });
-  // }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Container(
-  //     decoration: BoxDecoration(color: Colors.transparent),
-  //     child: Scaffold(
-  //       extendBody: true,
-  //       body: pages[_currentIndex],
-  //       bottomNavigationBar: Padding(
-  //         padding: EdgeInsets.only(bottom: 10.0),
-  //         child: DotNavigationBar(
-  //           //Color(0xffEEAE1C),
-  //           backgroundColor: Color.fromARGB(255, 225, 235, 213),
-  //           margin: EdgeInsets.only(left: 10.0, right: 10.0),
-  //           currentIndex: _currentIndex,
-  //           onTap: changePage,
-  //           items: [
-  //             DotNavigationBarItem(
-  //               icon: Icon(Icons.home_outlined),
-  //               unselectedColor: Colors.white,
-  //               selectedColor: Color(0xffF19C23),
-  //             ),
-  //             DotNavigationBarItem(
-  //               icon: Icon(Icons.favorite_border),
-  //               unselectedColor: Colors.white,
-  //               selectedColor: Color(0xffF19C23),
-  //             ),
-  //             DotNavigationBarItem(
-  //               icon: Icon(Icons.category_outlined),
-  //               unselectedColor: Colors.white,
-  //               selectedColor: Color(0xffF19C23),
-  //             ),
-  //             DotNavigationBarItem(
-  //               icon: Icon(Icons.storefront),
-  //               unselectedColor: Colors.white,
-  //               selectedColor: Color(0xffF19C23),
-  //             ),
-  //             DotNavigationBarItem(
-  //               icon: Icon(Icons.person),
-  //               unselectedColor: Colors.white,
-  //               selectedColor: Color(0xffF19C23),
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
   void _onItemTapped(int index) {
     setState(() {
       _currentIndex = index;
@@ -172,13 +80,3 @@ class _NavBarState extends State<NavBar> {
     );
   }
 }
-
-// enum _SelectedTab {
-//   HomeScreen(),
-//   FavoriteScreen(),
-//   CategoryScreen(),
-//   MarketScreen(),
-//   ProfileScreen(),
-// }
-// navigation=[HomeScreen(), FavoriteScreen(), CategoryScreen(), MarketScreen(),ProfileScreen()]
-// body: navigation[_selectedTab]

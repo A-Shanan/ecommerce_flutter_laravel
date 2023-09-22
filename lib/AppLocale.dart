@@ -1,10 +1,12 @@
+// ignore_for_file: file_names, no_leading_underscores_for_local_identifiers
+
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'dart:convert';
 
 class AppLocale {
   Locale locale;
-  // Locale locale;
   Map<String, String>? _translations;
   AppLocale(this.locale);
   static AppLocale of(BuildContext context) {
@@ -27,7 +29,7 @@ class AppLocale {
     return _translations?[key];
   }
 
-  static LocalizationsDelegate<AppLocale> delegate = AppLocaleDeleget();
+  static LocalizationsDelegate<AppLocale> delegate = const AppLocaleDeleget();
 }
 
 class AppLocaleDeleget extends LocalizationsDelegate<AppLocale> {

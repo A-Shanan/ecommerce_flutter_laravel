@@ -28,34 +28,34 @@ class Testt extends StatelessWidget {
                   await Provider.of<LanguageProvider>(context, listen: false)
                       .changeLanguage('en');
                 },
-                child: Text('english')),
+                child: const Text('english')),
             TextButton(
                 onPressed: () async {
                   await Provider.of<LanguageProvider>(context, listen: false)
                       .changeLanguage('ar');
                 },
-                child: Text('arabic')),
+                child: const Text('arabic')),
             TextButton(
                 onPressed: () async {
                   await Provider.of<ThemeProvider>(context, listen: false)
                       .changeTheme('light');
                 },
-                child: Text('light')),
+                child: const Text('light')),
             TextButton(
                 onPressed: () async {
                   await Provider.of<ThemeProvider>(context, listen: false)
                       .changeTheme('dark');
                 },
-                child: Text('dark')),
+                child: const Text('dark')),
             IconButton(
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => DoneScreen(),
+                      builder: (context) => const DoneScreen(),
                     ),
                   );
                 },
-                icon: Icon(Icons.ad_units)),
+                icon: const Icon(Icons.ad_units)),
             const SizedBox(
               height: 100,
             ),

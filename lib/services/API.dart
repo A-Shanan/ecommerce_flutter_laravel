@@ -1,13 +1,10 @@
-// ignore_for_file: unused_import, file_names
-
-import 'dart:io';
-
-import 'package:ecommerce_flutter_laravel/providers/review_provider.dart';
-import 'package:http/http.dart' as http;
-
+// ignore_for_file: file_names
 import 'dart:convert';
 
+import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:ecommerce_flutter_laravel/providers/review_provider.dart';
 
 SharedPreferences? preferences;
 
@@ -38,16 +35,6 @@ class API {
       'Accept': 'application/json'
     });
   }
-
-  // postRequest2(
-  //     String route, List<Map<String, dynamic>> data, String token) async {
-  //   String url = "http://192.168.137.1:8000/api/v1$route";
-  //   return await http.post(Uri.parse(url), body: jsonEncode(data), headers: {
-  //     "Authorization": "Bearer $token",
-  //     'Content-type': 'application/json',
-  //     'Accept': 'application/json'
-  //   });
-  // }
 
   getRequest(String route, String token) async {
     String url = "http://192.168.137.1:8000/api/v1$route";

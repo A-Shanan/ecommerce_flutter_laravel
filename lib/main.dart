@@ -12,7 +12,6 @@ import 'package:ecommerce_flutter_laravel/screens/home_screen.dart';
 import 'package:ecommerce_flutter_laravel/screens/login_screen.dart';
 import 'package:ecommerce_flutter_laravel/screens/registeration_screen.dart';
 import 'package:ecommerce_flutter_laravel/services/auth.dart';
-import 'package:ecommerce_flutter_laravel/services/auth1.dart';
 import 'package:ecommerce_flutter_laravel/services/getProducts.dart';
 import 'package:ecommerce_flutter_laravel/services/wishlist.dart';
 import 'package:flutter/material.dart';
@@ -60,9 +59,6 @@ class _MyAppState extends State<MyApp> {
       theme: Provider.of<ThemeProvider>(context).theme == 'light'
           ? ThemeData.light()
           : ThemeData.dark(),
-      // theme: ThemeData(
-      //   primarySwatch: Colors.blue,
-      // ),
       debugShowCheckedModeBanner: false,
       localizationsDelegates: [
         GlobalWidgetsLocalizations.delegate,
@@ -95,13 +91,6 @@ class _MyAppState extends State<MyApp> {
               return const LoginScreen();
             }
           }),
-      // Consumer<Auth>(builder: (context, auth, child) {
-      //   if (auth.authenticated) {
-      //     return HomeScreen();
-      //   } else {
-      //     return LoginScreen();
-      //   }
-      // }),
     );
   }
 }

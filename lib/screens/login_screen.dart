@@ -1,19 +1,15 @@
-// ignore_for_file: avoid_print, non_constant_identifier_names, use_build_context_synchronously, unused_import
+// ignore_for_file: avoid_print, non_constant_identifier_names
 
-import 'dart:convert';
+import 'dart:ui' as ui;
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:ecommerce_flutter_laravel/AppLocale.dart';
 import 'package:ecommerce_flutter_laravel/providers/theme_provider.dart';
-import 'package:ecommerce_flutter_laravel/screens/home_screen.dart';
 import 'package:ecommerce_flutter_laravel/screens/registeration_screen.dart';
 import 'package:ecommerce_flutter_laravel/services/auth.dart';
-import 'package:ecommerce_flutter_laravel/services/auth1.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:ui' as ui;
 
-import '../services/API.dart';
 import '../widgets/custom_textfield.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -162,59 +158,56 @@ class _LoginScreenState extends State<LoginScreen> {
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                         child: CustomTextFormField(
-                            controllerField: passwordController,
-                            prefixIcon: const Icon(Icons.lock_outlined),
-                            hintText:
-                                AppLocale.of(context).translate('enterPass')!,
-                            suffixIcon: IconButton(
-                              icon: Icon(isPassword
-                                  ? Icons.visibility
-                                  : Icons.visibility_off),
-                              onPressed: () {
-                                setState(() {
-                                  isPassword = !isPassword;
-                                });
-                              },
-                            ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Password must NOT be empty';
-                              } else if (value.length < 8) {
-                                return 'Password must be at least 8 characters';
-                              }
-                              return null;
-                            },
-                            contentPadding:
-                                const EdgeInsets.only(left: 10, top: 15),
-                            errorStyle: const TextStyle(
-                              height: 0.5,
-                            ),
-                            keyboardType: TextInputType.text,
-                            obscureText: isPassword,
-                            onChange: (String password) => print(password)),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        // ignore: prefer_const_literals_to_create_immutables
-                        children: [
-                          TextButton(
+                          controllerField: passwordController,
+                          prefixIcon: const Icon(Icons.lock_outlined),
+                          hintText:
+                              AppLocale.of(context).translate('enterPass')!,
+                          suffixIcon: IconButton(
+                            icon: Icon(isPassword
+                                ? Icons.visibility
+                                : Icons.visibility_off),
                             onPressed: () {
-                              // Navigator.pushAndRemoveUntil(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) => RegisterationScreen()),
-                              //     (route) => false);
+                              setState(() {
+                                isPassword = !isPassword;
+                              });
                             },
-                            child: const Text(
-                              'Forget Password?',
-                              style: TextStyle(
-                                  color: Color(0xffF19C23),
-                                  fontFamily: 'Poppins',
-                                  fontSize: 16.0),
-                            ),
                           ),
-                        ],
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Password must NOT be empty';
+                            } else if (value.length < 8) {
+                              return 'Password must be at least 8 characters';
+                            }
+                            return null;
+                          },
+                          contentPadding:
+                              const EdgeInsets.only(left: 10, top: 15),
+                          errorStyle: const TextStyle(
+                            height: 0.5,
+                          ),
+                          keyboardType: TextInputType.text,
+                          obscureText: isPassword,
+                          onChange: (String password) => print(password),
+                        ),
                       ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.end,
+                      //   children: [
+                      //     TextButton(
+                      //       onPressed: () {},
+                      //       child: const Text(
+                      //         'Forget Password?',
+                      //         style: TextStyle(
+                      //             color: Color(0xffF19C23),
+                      //             fontFamily: 'Poppins',
+                      //             fontSize: 16.0),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
                       FractionallySizedBox(
                         widthFactor: 1.0,
                         child: Container(

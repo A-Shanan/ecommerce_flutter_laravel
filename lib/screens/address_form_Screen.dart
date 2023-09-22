@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, file_names
 
 import 'package:ecommerce_flutter_laravel/AppLocale.dart';
 import 'package:ecommerce_flutter_laravel/providers/theme_provider.dart';
@@ -394,11 +394,6 @@ class AddressFormScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-
-                  // ListView.builder(
-                  //   itemCount: 2,
-                  //   itemBuilder: itemBuilder
-                  // ),
                 ],
               ),
             ),

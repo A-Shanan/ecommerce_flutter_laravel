@@ -1,11 +1,9 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, unused_import, avoid_print, non_constant_identifier_names
+// ignore_for_file: must_be_immutable, unused_local_variable
 
 import 'package:ecommerce_flutter_laravel/AppLocale.dart';
 import 'package:ecommerce_flutter_laravel/providers/cart_provider.dart';
 import 'package:ecommerce_flutter_laravel/providers/review_provider.dart';
 import 'package:ecommerce_flutter_laravel/providers/theme_provider.dart';
-import 'package:ecommerce_flutter_laravel/screens/cart_screen.dart';
-import 'package:ecommerce_flutter_laravel/services/API.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,10 +22,6 @@ class CustomModal extends StatefulWidget {
   int? productId;
   final int productIdButton;
   final int userIdd;
-  // String revName;
-  // var revText;
-  // List<ReviewProduct> list;
-  // ReviewProduct reviewItem;
 
   CustomModal({
     super.key,
@@ -42,10 +36,6 @@ class CustomModal extends StatefulWidget {
     required this.productId,
     required this.productIdButton,
     required this.userIdd,
-    // required this.revName,
-    // required this.revText,
-    // required this.list,
-    // required this.reviewItem,
     preferences,
   });
 
@@ -54,11 +44,6 @@ class CustomModal extends StatefulWidget {
 }
 
 class _CustomModalState extends State<CustomModal> {
-  // getAllReviews() {
-  //   final reviewProviderr =
-  //       Provider.of<ReviewProvider>(context).getAllReviews(widget.productId);
-  // }
-
   @override
   Widget build(BuildContext context) {
     final reviewProviderr =
@@ -150,7 +135,6 @@ class _CustomModalState extends State<CustomModal> {
                               itemBuilder: (context, index) {
                                 final reviewItem =
                                     provider.reviewProductItems[index];
-                                // widget.revName = reviewItem.review;
                                 return ListTile(
                                   title: Text(reviewItem.userName
                                       .toLowerCase()
@@ -168,28 +152,6 @@ class _CustomModalState extends State<CustomModal> {
                           }
                         },
                       ),
-                      // ListView.builder(
-                      //   itemCount:
-                      //       reviewProviderr.,
-                      //   itemBuilder: (context, index) {
-                      //     var reviewItem = widget.list[index];
-                      //     reviewItem = widget.revName;
-                      //     reviewItem = widget.revText;
-                      //     return reviewProviderr
-                      //             .reviewProductItemGetter.isNotEmpty
-                      //         ? ListTile(
-                      //             title: Text(widget.revName[reviewItem]),
-                      //             subtitle: Text(widget.revText[reviewItem]),
-                      //           )
-                      //         : Center(
-                      //             child: Text(
-                      //               'data',
-                      //               style: TextStyle(
-                      //                   fontSize: 50, color: Colors.cyan),
-                      //             ),
-                      //           );
-                      //   },
-                      // ),
                     ),
                   ],
                 ),
@@ -203,7 +165,6 @@ class _CustomModalState extends State<CustomModal> {
               children: [
                 Container(
                   height: MediaQuery.of(context).size.height / 20,
-                  // height: 40.0,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.0),
                     gradient:
@@ -240,26 +201,4 @@ class _CustomModalState extends State<CustomModal> {
       ),
     );
   }
-
-//    NullableIndexedWidgetBuilde itemBuilderr(BuildContext ctx, int indexx, List count){
-//     if(count.isEmpty){
-//                               return cntr(context);
-//                             }else{
-//                               return listTile();
-
-//                             }
-//   }
-
-// Widget cntr(BuildContext context)=>
-// Center(
-// child: Text(AppLocale.of(
-// context)
-// .translate('cartEmpty')!),
-//                  );
-
-// Widget listTile()=>
-//  ListTile(
-//                                 title: Text(widget.revName),
-//                                 subtitle: Text(widget.revText),
-//                               );
 }

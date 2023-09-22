@@ -1,4 +1,8 @@
-// ignore_for_file: avoid_print, prefer_const_literals_to_create_immutables
+// ignore_for_file: avoid_print, use_build_context_synchronously
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:ecommerce_flutter_laravel/AppLocale.dart';
 import 'package:ecommerce_flutter_laravel/providers/cart_provider.dart';
@@ -7,9 +11,6 @@ import 'package:ecommerce_flutter_laravel/screens/address_screen.dart';
 import 'package:ecommerce_flutter_laravel/screens/cart_screen.dart';
 import 'package:ecommerce_flutter_laravel/screens/order_screen.dart';
 import 'package:ecommerce_flutter_laravel/screens/settings_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../services/auth.dart';
 
@@ -142,7 +143,6 @@ class ProfileScreenState extends State<ProfileScreen> {
                                   'https://www.worldbirdsanctuary.org/wp-content/uploads/2021/07/goblin.jpg'),
                             ),
                           ),
-                          // const SizedBox(height: 1.0),
                           TextButton(
                             onPressed: () {
                               print('edit button is tapped');
@@ -175,31 +175,6 @@ class ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
-                const Divider(color: Color.fromARGB(255, 92, 225, 68)),
-                // SizedBox(
-                //   width: double.infinity,
-                //   child: IconButton(
-                //     onPressed: () {},
-                //     icon: Row(
-                //       children: [
-                //         const Icon(
-                //           size: 35.0,
-                //           Icons.person_2_outlined,
-                //         ),
-                //         const SizedBox(
-                //           width: 10.0,
-                //         ),
-                //         Text(
-                //           AppLocale.of(context).translate('myProfile')!,
-                //           style: const TextStyle(
-                //             fontSize: 20.0,
-                //             fontFamily: 'Poppins',
-                //           ),
-                //         ),
-                //       ],
-                //     ),
-                //   ),
-                // ),
                 SizedBox(
                   width: double.infinity,
                   child: IconButton(

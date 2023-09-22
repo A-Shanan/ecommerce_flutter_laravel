@@ -102,10 +102,6 @@ class _AddressScreenState extends State<AddressScreen> {
                         ],
                       ),
                     ),
-                    // ListView.builder(
-                    //   itemCount: 2,
-                    //   itemBuilder: itemBuilder
-                    // ),
                     Container(
                       height: MediaQuery.of(context).size.height / 2,
                       width: double.infinity,
@@ -188,51 +184,69 @@ class _AddressScreenState extends State<AddressScreen> {
         return ListView(
           children: [
             AlertDialog(
-              title: Text('Edit Address'),
+              title: Text(
+                AppLocale.of(context).translate('editAddress')!,
+              ),
               content: SingleChildScrollView(
                 child: ListBody(
                   children: <Widget>[
                     TextFormField(
                       controller: firstNameController,
-                      decoration:
-                          const InputDecoration(labelText: 'First Name'),
+                      decoration: InputDecoration(
+                        labelText:
+                            AppLocale.of(context).translate('firstName')!,
+                      ),
                       onChanged: (value) {},
                     ),
                     TextFormField(
                       controller: lastNameController,
-                      decoration: const InputDecoration(labelText: 'Last Name'),
+                      decoration: InputDecoration(
+                        labelText: AppLocale.of(context).translate('lastName')!,
+                      ),
                       onChanged: (value) {},
                     ),
                     TextFormField(
                       controller: addressLine1Controller,
-                      decoration:
-                          const InputDecoration(labelText: 'Address Line 1'),
+                      decoration: InputDecoration(
+                        labelText:
+                            AppLocale.of(context).translate('addressLine1')!,
+                      ),
                       onChanged: (value) {},
                     ),
                     TextFormField(
                       controller: addressLine2Controller,
-                      decoration:
-                          const InputDecoration(labelText: 'Address Line 2'),
+                      decoration: InputDecoration(
+                        labelText:
+                            AppLocale.of(context).translate('addressLine2')!,
+                      ),
                       onChanged: (value) {},
                     ),
                     TextFormField(
                       controller: cityController,
-                      decoration: const InputDecoration(labelText: 'City'),
+                      decoration: InputDecoration(
+                        labelText: AppLocale.of(context).translate('city')!,
+                      ),
                       onChanged: (value) {},
                     ),
                     TextFormField(
                       controller: stateController,
-                      decoration: const InputDecoration(labelText: 'State'),
+                      decoration: InputDecoration(
+                        labelText: AppLocale.of(context).translate('state')!,
+                      ),
                       onChanged: (value) {},
                     ),
                     TextFormField(
                       controller: zipCodeController,
-                      decoration: const InputDecoration(labelText: 'Zip Code'),
+                      decoration: InputDecoration(
+                        labelText: AppLocale.of(context).translate('zipCode')!,
+                      ),
                       onChanged: (value) {},
                     ),
                     TextFormField(
                       controller: countryController,
-                      decoration: const InputDecoration(labelText: 'Country'),
+                      decoration: InputDecoration(
+                        labelText: AppLocale.of(context).translate('country')!,
+                      ),
                       onChanged: (value) {},
                     ),
                   ],
@@ -240,19 +254,22 @@ class _AddressScreenState extends State<AddressScreen> {
               ),
               actions: <Widget>[
                 TextButton(
-                  child: Text('Cancel'),
+                  child: Text(
+                    AppLocale.of(context).translate('cancelButton')!,
+                  ),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                 ),
                 TextButton(
-                  child: Text('Save'),
+                  child: Text(
+                    AppLocale.of(context).translate('saveButton')!,
+                  ),
                   onPressed: () async {
                     SharedPreferences preferences =
                         await SharedPreferences.getInstance();
 
                     String? token = preferences.getString('token');
-                    // Call the function to update the address here
                     Provider.of<AddressProvider>(context, listen: false)
                         .updateShippingAddress(
                       address.id,

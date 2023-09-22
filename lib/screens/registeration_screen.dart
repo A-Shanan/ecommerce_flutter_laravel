@@ -1,16 +1,14 @@
-// ignore_for_file: avoid_print, must_be_immutable, non_constant_identifier_names, prefer_const_constructors, unused_import
+// ignore_for_file: avoid_print, non_constant_identifier_names
 
 import 'dart:convert';
+import 'dart:ui' as ui;
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:ecommerce_flutter_laravel/AppLocale.dart';
 import 'package:ecommerce_flutter_laravel/services/API.dart';
-import 'package:ecommerce_flutter_laravel/services/auth1.dart';
 import 'package:ecommerce_flutter_laravel/widgets/custom_textfield.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
-
-import 'dart:ui' as ui;
 
 import '../providers/theme_provider.dart';
 import 'login_screen.dart';
@@ -56,10 +54,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
               Stack(
                 children: [
                   CustomPaint(
-                    size: Size(
-                        100000.0,
-                        (330 * 0.7888040712468194)
-                            .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+                    size: Size(100000.0, (330 * 0.7888040712468194).toDouble()),
                     painter: RPSCustomPainter(),
                   ),
                   Positioned(
@@ -67,7 +62,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                     left: 30.0,
                     child: Text(
                       AppLocale.of(context).translate('signUp')!,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 34.0,
                         fontWeight: FontWeight.normal,
@@ -79,18 +74,17 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
               ),
               Text(
                 AppLocale.of(context).translate('createAccount')!,
-                style: TextStyle(
+                style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     fontFamily: 'Poppins',
                     fontSize: 26.0),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                // ignore: prefer_const_literals_to_create_immutables
                 children: [
                   Text(
                     AppLocale.of(context).translate('alreadyMem')!,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Color(0xff9E9E9E),
                         fontFamily: 'Poppins',
                         fontSize: 16.0),
@@ -100,7 +94,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => LoginScreen()),
+                              builder: (context) => const LoginScreen()),
                           (route) => false);
                     },
                     child: Text(
@@ -152,7 +146,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                         height: 15,
                       ),
                       Container(
-                        // width: MediaQuery.of(context).size.width / 1.1,
+                        width: MediaQuery.of(context).size.width / 1.1,
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: Colors.black.withOpacity(0.14),
@@ -189,7 +183,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                         height: 15,
                       ),
                       Container(
-                        // width: 350,
+                        width: MediaQuery.of(context).size.width / 1.1,
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: Colors.black.withOpacity(0.14),
@@ -231,7 +225,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                         height: 15,
                       ),
                       Container(
-                        // width: 350,
+                        width: MediaQuery.of(context).size.width / 1.1,
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: Colors.black.withOpacity(0.14),
@@ -294,7 +288,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                LoginScreen()),
+                                                const LoginScreen()),
                                         (route) => false);
                                   },
                                 );
@@ -318,42 +312,6 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
   }
 
   Future<void> signUp() async {
-    // try {
-    //   var url = Uri.parse('http://192.168.137.1:8000/api/v1/');
-    //   var response = await http.post(
-    //     url,
-    //     headers: {
-    //       'Content-type': "application/json",
-    //       'Accept': 'application/json'
-    //     },
-    //     body: jsonEncode(
-    //       {
-    //         'name': nameController.text.toString(),
-    //         'email': emailController.text.toLowerCase().toString(),
-    //         'password': passwordController.text.toString(),
-    //       },
-    //     ),
-    //   );
-    //   if (response.statusCode == 200) {
-    //     print(jsonDecode(response.body));
-    //   } else {
-    //     print('error: ${response.statusCode}');
-    //   }
-    // } catch (e) {
-    //   print("errorrrrrrrr: $e");
-    // }
-
-    // postRequest(String route, Map<String, dynamic> data) async {
-    //     String url = "http://192.168.137.1:8000/api/v1$route";
-    //     return await http.post(Uri.parse(url), body: jsonEncode(data), headers: {
-    //       'Content-type': 'application/json',
-    //       'Accept': 'application/json'
-    //     });
-    //   }
-
-    // header() =>
-    //     {'Content-type': 'application/json', 'Accept': 'application/json'};
-
     final data = {
       'email': emailController.text.toString().toLowerCase(),
       'name': nameController.text.toString(),

@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, unused_local_variable, prefer_const_constructors, avoid_print
+// ignore_for_file: avoid_print, non_constant_identifier_names
 
 import 'package:ecommerce_flutter_laravel/providers/address_provider.dart';
 import 'package:ecommerce_flutter_laravel/providers/theme_provider.dart';
@@ -45,10 +45,10 @@ class _CartScreenState extends State<CartScreen> {
           elevation: 0.0,
           scrolledUnderElevation: 1.0,
           title: Padding(
-            padding: EdgeInsets.only(top: 20.0),
+            padding: const EdgeInsets.only(top: 20.0),
             child: Text(
               AppLocale.of(context).translate('cart')!,
-              style: TextStyle(fontFamily: 'Poppins', fontSize: 30.0),
+              style: const TextStyle(fontFamily: 'Poppins', fontSize: 30.0),
             ),
           ),
           flexibleSpace: Container(
@@ -85,14 +85,14 @@ class _CartScreenState extends State<CartScreen> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           IconButton(
-                            icon: Icon(Icons.remove),
+                            icon: const Icon(Icons.remove),
                             onPressed: () {
                               cartProvider.decreaseQuantity(index);
                             },
                           ),
                           Text('${cartItem.quantity}'),
                           IconButton(
-                            icon: Icon(Icons.add),
+                            icon: const Icon(Icons.add),
                             onPressed: () {
                               cartProvider.increaseQuantity(index);
                             },
@@ -100,7 +100,7 @@ class _CartScreenState extends State<CartScreen> {
                         ],
                       ),
                     )
-                  : Center(
+                  : const Center(
                       child: Text(
                         'data',
                         style: TextStyle(fontSize: 50, color: Colors.cyan),
@@ -111,7 +111,7 @@ class _CartScreenState extends State<CartScreen> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -125,7 +125,8 @@ class _CartScreenState extends State<CartScreen> {
               },
               child: Text(
                 'Quantity: ${cartProvider.calculateTotalQuantity().toStringAsFixed(0)}',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
             Container(
@@ -214,7 +215,8 @@ class _CartScreenState extends State<CartScreen> {
                                                       MainAxisSize.min,
                                                   children: [
                                                     IconButton(
-                                                      icon: Icon(Icons.remove),
+                                                      icon: const Icon(
+                                                          Icons.remove),
                                                       onPressed: () {
                                                         cartProvider
                                                             .decreaseQuantity(
@@ -224,7 +226,8 @@ class _CartScreenState extends State<CartScreen> {
                                                     Text(
                                                         '${cartItem.quantity}'),
                                                     IconButton(
-                                                      icon: Icon(Icons.add),
+                                                      icon:
+                                                          const Icon(Icons.add),
                                                       onPressed: () {
                                                         cartProvider
                                                             .increaseQuantity(
@@ -257,7 +260,7 @@ class _CartScreenState extends State<CartScreen> {
                                                       );
                                                     });
                                               },
-                                              icon: Icon(
+                                              icon: const Icon(
                                                   Icons
                                                       .add_circle_outline_rounded,
                                                   color: Color(0xffFFB100)))
@@ -297,17 +300,17 @@ class _CartScreenState extends State<CartScreen> {
                                                 }).toList(),
                                               ),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 15,
                                             ),
                                             Text(
                                               AppLocale.of(context)
                                                   .translate('paymentMethod')!,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 20,
                                                   fontFamily: 'Poppins'),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 10,
                                             ),
                                             Container(
@@ -356,7 +359,7 @@ class _CartScreenState extends State<CartScreen> {
                                                 },
                                               ),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 10,
                                             ),
                                             Container(
@@ -405,7 +408,7 @@ class _CartScreenState extends State<CartScreen> {
                                                 },
                                               ),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 10,
                                             ),
                                             Row(
@@ -569,7 +572,7 @@ class _CartScreenState extends State<CartScreen> {
                                     child: Text(
                                       AppLocale.of(context)
                                           .translate('doneButton')!,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 14.0,
                                           color: Colors.white,
                                           fontWeight: FontWeight.w400,
@@ -585,7 +588,7 @@ class _CartScreenState extends State<CartScreen> {
                 },
                 child: Text(
                   AppLocale.of(context).translate('checkOut')!,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 14.0,
                       color: Colors.white,
                       fontWeight: FontWeight.w400,

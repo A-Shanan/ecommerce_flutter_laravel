@@ -59,8 +59,6 @@ class ReviewProvider with ChangeNotifier {
   }
 
   getAllReviews(int productId) async {
-    // ReviewProduct reviewProvider = ReviewProduct();
-    // productID
     final result =
         await API().getRequestWithoutToken("/productreview/$productId");
     print("All Reviews: ${jsonDecode((result.body))}");

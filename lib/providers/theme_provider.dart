@@ -61,7 +61,3 @@ Color lightBackgroundCard = Colors.white;
 
 Color lightIcon = Colors.black;
 Color darkIcon = const Color(0xffEEAE1C);
-//////////////////////
-///for background in dark mode Color.fromARGB(29, 48, 48, 48)
-///for background custom card in dark mode Color(0xff303030), in light mode Colors.white
-///

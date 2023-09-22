@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, dead_code
 
 import 'dart:convert';
 
@@ -83,11 +83,9 @@ class OrderProvider with ChangeNotifier {
       final responseData = jsonDecode(response.body);
       return responseData;
     } else {
-      // Handle error cases here if needed
       throw Exception('Failed to create order');
     }
-    // final response = await yourApiService.postOrder(
-    //     total, userId); // Implement your API service
+
     return response;
   }
 
@@ -137,7 +135,6 @@ class OrderProvider with ChangeNotifier {
           "errors from function fetchOrdersAndDetails Order in AddressProvider:$error");
     }
 
-    // Fetch order details
     final resultD = await API().getRequest('/orderDetails', token);
     print("All orders details: ${jsonDecode((result.body))}");
     final responsed = jsonDecode(resultD.body);
@@ -157,6 +154,6 @@ class OrderProvider with ChangeNotifier {
           "errors from function fetchOrdersAndDetails OrderDetails in AddressProvider:$error");
     }
 
-    notifyListeners(); // Notify listeners to rebuild UI
+    notifyListeners();
   }
 }

@@ -1,10 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:ecommerce_flutter_laravel/providers/review_provider.dart';
-import 'package:ecommerce_flutter_laravel/services/API.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:ecommerce_flutter_laravel/providers/review_provider.dart';
 
 import '../AppLocale.dart';
 import '../providers/order_provider.dart';
@@ -86,7 +86,7 @@ class _OrderScreenState extends State<OrderScreen> {
                     Center(
                       child: Text(
                         AppLocale.of(context).translate('rev')!,
-                        style: TextStyle(fontSize: 17),
+                        style: const TextStyle(fontSize: 17),
                       ),
                     ),
                     Container(
@@ -243,7 +243,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                           filterQuality: FilterQuality.high,
                                         ),
                                       ),
-                                      title: Text("${orderDetail.productName}"),
+                                      title: Text(orderDetail.productName),
                                       subtitle: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
