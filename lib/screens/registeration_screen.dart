@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:ecommerce_flutter_laravel/AppLocale.dart';
 import 'package:ecommerce_flutter_laravel/services/API.dart';
 import 'package:ecommerce_flutter_laravel/services/auth1.dart';
 import 'package:ecommerce_flutter_laravel/widgets/custom_textfield.dart';
@@ -11,6 +12,7 @@ import 'package:http/http.dart' as http;
 
 import 'dart:ui' as ui;
 
+import '../providers/theme_provider.dart';
 import 'login_screen.dart';
 
 class RegisterationScreen extends StatefulWidget {
@@ -60,11 +62,11 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                             .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
                     painter: RPSCustomPainter(),
                   ),
-                  const Positioned(
+                  Positioned(
                     top: 70.0,
                     left: 30.0,
                     child: Text(
-                      "Sign Up",
+                      AppLocale.of(context).translate('signUp')!,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 34.0,
@@ -75,8 +77,8 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                   ),
                 ],
               ),
-              const Text(
-                'Create an account',
+              Text(
+                AppLocale.of(context).translate('createAccount')!,
                 style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontFamily: 'Poppins',
@@ -86,8 +88,8 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 // ignore: prefer_const_literals_to_create_immutables
                 children: [
-                  const Text(
-                    'Already a member?',
+                  Text(
+                    AppLocale.of(context).translate('alreadyMem')!,
                     style: TextStyle(
                         color: Color(0xff9E9E9E),
                         fontFamily: 'Poppins',
@@ -101,9 +103,9 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                               builder: (context) => LoginScreen()),
                           (route) => false);
                     },
-                    child: const Text(
-                      'sign in',
-                      style: TextStyle(
+                    child: Text(
+                      AppLocale.of(context).translate('signIn')!,
+                      style: const TextStyle(
                           color: Color(0xffF19C23),
                           fontFamily: 'Poppins',
                           fontSize: 16.0),
@@ -126,7 +128,8 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                         ),
                         child: CustomTextFormField(
                           controllerField: nameController,
-                          hintText: 'Full Name',
+                          hintText:
+                              AppLocale.of(context).translate('fullName')!,
                           prefixIcon: const Icon(Icons.person_2_outlined),
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -146,7 +149,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                         ),
                       ),
                       const SizedBox(
-                        height: 25,
+                        height: 15,
                       ),
                       Container(
                         // width: MediaQuery.of(context).size.width / 1.1,
@@ -159,7 +162,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                         ),
                         child: CustomTextFormField(
                           controllerField: emailController,
-                          hintText: 'Email',
+                          hintText: AppLocale.of(context).translate('email')!,
                           prefixIcon: const Icon(Icons.email_outlined),
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -183,7 +186,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                         ),
                       ),
                       const SizedBox(
-                        height: 25,
+                        height: 15,
                       ),
                       Container(
                         // width: 350,
@@ -196,7 +199,8 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                         ),
                         child: CustomTextFormField(
                             controllerField: passwordController,
-                            hintText: 'Password',
+                            hintText:
+                                AppLocale.of(context).translate('passowrd')!,
                             prefixIcon: const Icon(Icons.lock_outlined),
                             suffixIcon: IconButton(
                               icon: Icon(isPassword
@@ -224,7 +228,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                             onChange: (String password) => print(password)),
                       ),
                       const SizedBox(
-                        height: 25,
+                        height: 15,
                       ),
                       Container(
                         // width: 350,
@@ -237,7 +241,8 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                         ),
                         child: CustomTextFormField(
                           controllerField: confirmPasswordController,
-                          hintText: 'Confirm Password',
+                          hintText:
+                              AppLocale.of(context).translate('confPassowrd')!,
                           prefixIcon: const Icon(Icons.lock_outline),
                           suffixIcon: IconButton(
                             icon: Icon(isPassword
@@ -268,23 +273,42 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                           onChange: (confirmPassword) => print(confirmPassword),
                         ),
                       ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      FractionallySizedBox(
+                        widthFactor: 1.0,
+                        child: Container(
+                          height: 60.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12.0),
+                            gradient: Provider.of<ThemeProvider>(context)
+                                .linearGradient,
+                          ),
+                          child: TextButton(
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                signUp().then(
+                                  (_) {
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                LoginScreen()),
+                                        (route) => false);
+                                  },
+                                );
+                              }
+                            },
+                            child: Text(
+                              AppLocale.of(context).translate('create')!,
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
-              ),
-              TextButton(
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    signUp();
-                    // Provider.of<Auth>(context, listen: false).register(
-                    //   nameController.text,
-                    //   emailController.text,
-                    //   passwordController.text,
-                    //   context,
-                    // );
-                  }
-                },
-                child: const Text('Submit'),
               ),
             ],
           ),

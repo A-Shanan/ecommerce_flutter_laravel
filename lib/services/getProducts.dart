@@ -34,4 +34,11 @@ class GetProducts extends ChangeNotifier {
       print('errors: $error');
     }
   }
+
+  List<Map<String, dynamic>> searchProducts(String search) {
+    return products
+        .where((product) =>
+            product['name'].toLowerCase().contains(search.toLowerCase()))
+        .toList();
+  }
 }

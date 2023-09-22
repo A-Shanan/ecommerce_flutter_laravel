@@ -1,16 +1,18 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, unused_import
+// ignore_for_file: prefer_const_constructors_in_immutables, unused_import, avoid_print, non_constant_identifier_names
 
 import 'package:ecommerce_flutter_laravel/AppLocale.dart';
 import 'package:ecommerce_flutter_laravel/providers/cart_provider.dart';
+import 'package:ecommerce_flutter_laravel/providers/review_provider.dart';
 import 'package:ecommerce_flutter_laravel/providers/theme_provider.dart';
 import 'package:ecommerce_flutter_laravel/screens/cart_screen.dart';
+import 'package:ecommerce_flutter_laravel/services/API.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../services/wishlist.dart';
 
-class CustomModal extends StatelessWidget {
+class CustomModal extends StatefulWidget {
   final String imageUrl;
   final String imageUrlB;
   final String title;
@@ -19,8 +21,13 @@ class CustomModal extends StatelessWidget {
   final String price;
   final double priceB;
   final int stock;
-  final int productId;
-  final int productIdB;
+  int? productId;
+  final int productIdButton;
+  final int userIdd;
+  // String revName;
+  // var revText;
+  // List<ReviewProduct> list;
+  // ReviewProduct reviewItem;
 
   CustomModal({
     super.key,
@@ -33,12 +40,30 @@ class CustomModal extends StatelessWidget {
     required this.priceB,
     required this.stock,
     required this.productId,
-    required this.productIdB,
+    required this.productIdButton,
+    required this.userIdd,
+    // required this.revName,
+    // required this.revText,
+    // required this.list,
+    // required this.reviewItem,
     preferences,
   });
 
   @override
+  State<CustomModal> createState() => _CustomModalState();
+}
+
+class _CustomModalState extends State<CustomModal> {
+  // getAllReviews() {
+  //   final reviewProviderr =
+  //       Provider.of<ReviewProvider>(context).getAllReviews(widget.productId);
+  // }
+
+  @override
   Widget build(BuildContext context) {
+    final reviewProviderr =
+        Provider.of<ReviewProvider>(context).getAllReviews(widget.productId!);
+
     return FractionallySizedBox(
       heightFactor: 0.95,
       child: Column(
@@ -53,7 +78,7 @@ class CustomModal extends StatelessWidget {
                   top: Radius.circular(20),
                 ),
                 child: Image.network(
-                  imageUrl,
+                  widget.imageUrl,
                   fit: BoxFit.fill,
                   width: double.infinity,
                   height: MediaQuery.of(context).size.height / 3.0,
@@ -65,40 +90,29 @@ class CustomModal extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      title,
+                      widget.title,
                       style: const TextStyle(
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.bold,
                           fontSize: 20),
                     ),
                     Text(
-                      description,
+                      widget.description,
                       style: const TextStyle(
                           height: 1.2, fontFamily: 'Poppins', fontSize: 17),
                     ),
                     Text(
-                      "In Stock: $stock",
+                      "In Stock: ${widget.stock}",
                       style: const TextStyle(
                           height: 1.2, fontFamily: 'Poppins', fontSize: 17),
                     ),
                     IconButton(
-                      onPressed: () async {
-                        // SharedPreferences preferences =
-                        //     await SharedPreferences.getInstance();
-                        // String? token = preferences.getString('token');
-                        // Map<String, dynamic> data = {
-                        //   "product_id": id,
-                        //   "user_id": preferences.getInt('user_id'),
-                        // };
-                        // print('favIcon is pressed');
-                        // Provider.of<Wishlist>(context, listen: false)
-                        //     .addToFav(data, token!);
-                      },
+                      onPressed: () async {},
                       icon: Consumer<Wishlist>(
                         builder: (context, favoriteModel, child) {
                           return IconButton(
                             icon: Icon(
-                              favoriteModel.isFavorite(productId)
+                              favoriteModel.isFavorite(widget.productId!)
                                   ? Icons.favorite
                                   : Icons.favorite_border,
                               color: const Color(0xffFFB100),
@@ -107,12 +121,75 @@ class CustomModal extends StatelessWidget {
                               SharedPreferences preferences =
                                   await SharedPreferences.getInstance();
                               String? token = preferences.getString('token');
-                              favoriteModel.toggleFavorite(productId,
+                              favoriteModel.toggleFavorite(widget.productId!,
                                   preferences.getInt('user_id')!, token!);
                             },
                           );
                         },
                       ),
+                    ),
+                    // Text('data'),
+                    Container(
+                      constraints: const BoxConstraints(
+                        maxHeight: 200.0,
+                      ),
+                      child: Consumer<ReviewProvider>(
+                        builder: (context, provider, child) {
+                          if (provider.reviewProductItems.isEmpty) {
+                            return Center(
+                                child: Text(
+                              AppLocale.of(context).translate('noReview')!,
+                              style: const TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold),
+                            ));
+                          } else if (provider
+                                  .reviewProductItemGetter.isNotEmpty &&
+                              widget.productId != null) {
+                            return ListView.builder(
+                              itemCount: provider.reviewProductItems.length,
+                              itemBuilder: (context, index) {
+                                final reviewItem =
+                                    provider.reviewProductItems[index];
+                                // widget.revName = reviewItem.review;
+                                return ListTile(
+                                  title: Text(reviewItem.userName
+                                      .toLowerCase()
+                                      .toString()),
+                                  subtitle:
+                                      Text("${reviewItem.review.toString()},"),
+                                );
+                              },
+                            );
+                          } else {
+                            return Center(
+                                child: Text(
+                              AppLocale.of(context).translate('noReview')!,
+                            ));
+                          }
+                        },
+                      ),
+                      // ListView.builder(
+                      //   itemCount:
+                      //       reviewProviderr.,
+                      //   itemBuilder: (context, index) {
+                      //     var reviewItem = widget.list[index];
+                      //     reviewItem = widget.revName;
+                      //     reviewItem = widget.revText;
+                      //     return reviewProviderr
+                      //             .reviewProductItemGetter.isNotEmpty
+                      //         ? ListTile(
+                      //             title: Text(widget.revName[reviewItem]),
+                      //             subtitle: Text(widget.revText[reviewItem]),
+                      //           )
+                      //         : Center(
+                      //             child: Text(
+                      //               'data',
+                      //               style: TextStyle(
+                      //                   fontSize: 50, color: Colors.cyan),
+                      //             ),
+                      //           );
+                      //   },
+                      // ),
                     ),
                   ],
                 ),
@@ -136,10 +213,10 @@ class CustomModal extends StatelessWidget {
                     onPressed: () {
                       Provider.of<CartProvider>(context, listen: false)
                           .addToCart(
-                        productIdB,
-                        titleB,
-                        priceB,
-                        imageUrlB,
+                        widget.productIdButton,
+                        widget.titleB,
+                        widget.priceB,
+                        widget.imageUrlB,
                       );
                     },
                     child: Text(
@@ -153,7 +230,7 @@ class CustomModal extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "\$ $price",
+                  "\$ ${widget.price}",
                   style: const TextStyle(fontFamily: 'Poppins'),
                 ),
               ],
@@ -163,4 +240,26 @@ class CustomModal extends StatelessWidget {
       ),
     );
   }
+
+//    NullableIndexedWidgetBuilde itemBuilderr(BuildContext ctx, int indexx, List count){
+//     if(count.isEmpty){
+//                               return cntr(context);
+//                             }else{
+//                               return listTile();
+
+//                             }
+//   }
+
+// Widget cntr(BuildContext context)=>
+// Center(
+// child: Text(AppLocale.of(
+// context)
+// .translate('cartEmpty')!),
+//                  );
+
+// Widget listTile()=>
+//  ListTile(
+//                                 title: Text(widget.revName),
+//                                 subtitle: Text(widget.revText),
+//                               );
 }

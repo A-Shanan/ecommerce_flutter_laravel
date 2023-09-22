@@ -1,4 +1,21 @@
 {
+  "signIn":"Sign In",
+  "welcome":"Welcome Back!",
+  "dontHave":"Don't have an ACCOUNT?",
+  "register":"Register",
+  "enterEmail":"Enter Email Address",
+  "enterPass":"Enter Password",
+
+  "signUp":"Sign Up",
+  "createAccount":"Create an account",
+  "alreadyMem":"Already a member?",
+  "fullName":"Full Name",
+  "email":"Email",
+  "passowrd":"Password",
+  "confPassowrd":"Confirm Password",
+  "create":"Create",
+
+
   "home": "Home",
   "searchBar": "Search...",
   "noPorductAvailable":"No Porducts Available",
@@ -23,7 +40,7 @@
   "transComp":"Transaction Completed SUCCESSFULLY",
 
   "favorite": "Favorite",
-
+  
   "appearance":"Appearance",
   "light":"Light",
   "dark":"Dark",
@@ -37,6 +54,16 @@
   "myAddresses": "My Addresses",
   "mySettings": "My Settings",
   "logout": "Logout",
+
+  "quantity":"Quantity",
+  "price":"Price",
+
+  "rev": "to add Your Review, Please prees add button +",
+  "writeYourReview": "Write Your Review",
+  "yourReview": "Your review",
+  "yourRate": "Your rate out of 5",
+  "saveButton": "Save",
+  "cancelButton": "Cancel",
 
   "addAddress": "Add an Address",
   "firstName": "First Name",
@@ -55,5 +82,8 @@
   "zipCodeValidator": "Zip Code must NOT be empty",
   "country": "country",
   "countryValidator": "country must NOT be empty",
-  "addButton": "Add"
+  "addButton": "Add",
+  "noAddress": "No Address available, press + button to add",
+  "noReview": "No Reviews available for this product"
+
 }

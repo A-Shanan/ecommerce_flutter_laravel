@@ -1,4 +1,21 @@
 {
+  "signIn":"تسجيل دخول",
+  "welcome":"اهلا مرة اخرى",
+  "dontHave":"ليس لديك حساب؟",
+  "register":"انشئ حساب",
+  "enterEmail":"البريد الالكتروني",
+  "enterPass":"كلمة المرور",
+
+  "signUp":"إنشاء حساب",
+  "createAccount":"إنشاء حساب",
+  "alreadyMem":"هل عندك حساب؟",
+  "fullName":"الاسم الكامل",
+  "email":"البريد الالكتروني",
+  "passowrd":"كلمة المرور",
+  "confPassowrd":"تاكيد كلمة المرور",
+  "create":"إنشاء",
+
+  
   "home": "الرئيسية",
   "searchBar": "ابحث هنا...",
   "noPorductAvailable":"لا توجد منتجات متاحة",
@@ -38,6 +55,16 @@
   "mySettings": "اعداداتي",
   "logout": "تسجيل خروج",
 
+  "quantity":"الكمية",
+  "price":"السعر",
+
+  "rev": "لإضافة رأيك، يرجى الضغط على زر الإضافة +",
+  "writeYourReview": "اكتب رأيك بالمنتج",
+  "yourReview": "رأيك في المنتج",
+  "yourRate": "تقييم من 5",
+  "saveButton": "حفظ",
+  "cancelButton": "الغاء",
+
   "addAddress": "اضافة عنوان",
   "firstName": "الاسم الاول",
   "firstNameValidator": "يجب ملء الاسم الاول",
@@ -55,5 +82,8 @@
   "zipCodeValidator": "يجب ملء الرمز البريدي",
   "country": "البلد",
   "countryValidator": "يجب ملء البلد",
-  "addButton": "اضافة"
+  "addButton": "اضافة",
+  "noAddress": "لا يوجد عناوين, اضغط على الزر (+) لإضافةعنوان",
+  "noReview": "لا يوجد تعليقات لهذا المنتج"
+
 }

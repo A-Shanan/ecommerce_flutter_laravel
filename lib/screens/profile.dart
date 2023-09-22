@@ -5,6 +5,7 @@ import 'package:ecommerce_flutter_laravel/providers/cart_provider.dart';
 import 'package:ecommerce_flutter_laravel/providers/theme_provider.dart';
 import 'package:ecommerce_flutter_laravel/screens/address_screen.dart';
 import 'package:ecommerce_flutter_laravel/screens/cart_screen.dart';
+import 'package:ecommerce_flutter_laravel/screens/order_screen.dart';
 import 'package:ecommerce_flutter_laravel/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -175,34 +176,38 @@ class ProfileScreenState extends State<ProfileScreen> {
                   ],
                 ),
                 const Divider(color: Color.fromARGB(255, 92, 225, 68)),
+                // SizedBox(
+                //   width: double.infinity,
+                //   child: IconButton(
+                //     onPressed: () {},
+                //     icon: Row(
+                //       children: [
+                //         const Icon(
+                //           size: 35.0,
+                //           Icons.person_2_outlined,
+                //         ),
+                //         const SizedBox(
+                //           width: 10.0,
+                //         ),
+                //         Text(
+                //           AppLocale.of(context).translate('myProfile')!,
+                //           style: const TextStyle(
+                //             fontSize: 20.0,
+                //             fontFamily: 'Poppins',
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
                 SizedBox(
                   width: double.infinity,
                   child: IconButton(
-                    onPressed: () {},
-                    icon: Row(
-                      children: [
-                        const Icon(
-                          size: 35.0,
-                          Icons.person_2_outlined,
-                        ),
-                        const SizedBox(
-                          width: 10.0,
-                        ),
-                        Text(
-                          AppLocale.of(context).translate('myProfile')!,
-                          style: const TextStyle(
-                            fontSize: 20.0,
-                            fontFamily: 'Poppins',
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const OrderScreen(),
+                      ));
+                    },
                     icon: Row(
                       children: [
                         const Icon(

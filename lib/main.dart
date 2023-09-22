@@ -6,6 +6,7 @@ import 'package:ecommerce_flutter_laravel/providers/address_provider.dart';
 import 'package:ecommerce_flutter_laravel/providers/cart_provider.dart';
 import 'package:ecommerce_flutter_laravel/providers/language_provider.dart';
 import 'package:ecommerce_flutter_laravel/providers/order_provider.dart';
+import 'package:ecommerce_flutter_laravel/providers/review_provider.dart';
 import 'package:ecommerce_flutter_laravel/providers/theme_provider.dart';
 import 'package:ecommerce_flutter_laravel/screens/home_screen.dart';
 import 'package:ecommerce_flutter_laravel/screens/login_screen.dart';
@@ -28,6 +29,7 @@ void main() {
       ChangeNotifierProvider(create: (context) => CartProvider()),
       ChangeNotifierProvider(create: (context) => OrderProvider()),
       ChangeNotifierProvider(create: (context) => AddressProvider()),
+      ChangeNotifierProvider(create: (context) => ReviewProvider()),
       ChangeNotifierProvider(create: (context) => LanguageProvider()),
       ChangeNotifierProvider(create: (context) => ThemeProvider()),
       // ChangeNotifierProvider<LanguageProvider>(create: (_) => LanguageProvider()),//try it later

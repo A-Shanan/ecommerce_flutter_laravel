@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:ecommerce_flutter_laravel/AppLocale.dart';
 import 'package:ecommerce_flutter_laravel/providers/theme_provider.dart';
 import 'package:ecommerce_flutter_laravel/screens/home_screen.dart';
 import 'package:ecommerce_flutter_laravel/screens/registeration_screen.dart';
@@ -54,12 +55,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           Size(100000.0, (330 * 0.7888040712468194).toDouble()),
                       painter: RPSCustomPainter(),
                     ),
-                    const Positioned(
+                    Positioned(
                       top: 70.0,
                       left: 30.0,
                       child: Text(
-                        "Sign In",
-                        style: TextStyle(
+                        AppLocale.of(context).translate('signIn')!,
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 34.0,
                           fontWeight: FontWeight.normal,
@@ -69,10 +70,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                const Center(
+                Center(
                   child: Text(
-                    "Welcome Back!",
-                    style: TextStyle(
+                    AppLocale.of(context).translate('welcome')!,
+                    style: const TextStyle(
                         color: Colors.black,
                         fontFamily: 'Poppins',
                         fontSize: 26.0,
@@ -82,9 +83,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      "Don't have an account",
-                      style: TextStyle(
+                    Text(
+                      AppLocale.of(context).translate('dontHave')!,
+                      style: const TextStyle(
                           color: Color(0xff9E9E9E),
                           fontFamily: 'Poppins',
                           fontSize: 16.0),
@@ -98,9 +99,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     const RegisterationScreen()),
                             (route) => false);
                       },
-                      child: const Text(
-                        'Register',
-                        style: TextStyle(
+                      child: Text(
+                        AppLocale.of(context).translate('register')!,
+                        style: const TextStyle(
                             color: Color(0xffF19C23),
                             fontFamily: 'Poppins',
                             fontSize: 16.0),
@@ -125,7 +126,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: CustomTextFormField(
                           controllerField: emailController,
                           prefixIcon: const Icon(Icons.email_outlined),
-                          hintText: 'Enter Email Address',
+                          hintText:
+                              AppLocale.of(context).translate('enterEmail')!,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'Invalid email';
@@ -162,7 +164,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: CustomTextFormField(
                             controllerField: passwordController,
                             prefixIcon: const Icon(Icons.lock_outlined),
-                            hintText: 'Enter Password',
+                            hintText:
+                                AppLocale.of(context).translate('enterPass')!,
                             suffixIcon: IconButton(
                               icon: Icon(isPassword
                                   ? Icons.visibility
@@ -229,25 +232,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                 "device_name": emailController.text,
                               };
                               if (formKey.currentState!.validate()) {
-                                // logg();
                                 Provider.of<Auth>(context, listen: false)
                                     .login(creds, context);
-
-                                // print(creds);
-                                // Provider.of<Auth>(context, listen: false)
-                                //     .login1(emailController.text,
-                                //         passwordController.text, context);
                               }
-                              // else if (formKey.currentState!.validate() ==
-                              //     false) {
-                              //   ScaffoldMessenger.of(context).showSnackBar(
-                              //       const SnackBar(
-                              //           content: Text("Invalid Credentials")));
-                              // }
                             },
-                            child: const Text(
-                              "Sign In",
-                              style: TextStyle(
+                            child: Text(
+                              AppLocale.of(context).translate('signIn')!,
+                              style: const TextStyle(
                                   fontSize: 26.0,
                                   color: Colors.white,
                                   fontWeight: FontWeight.w400,
@@ -265,72 +256,6 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-  }
-
-  Future<void> logg() async {
-    // try {
-    //   var url = Uri.parse('http://192.168.137.1:8000/api/v1/');
-    //   var response = await http.post(
-    //     url,
-    //     headers: {
-    //       'Content-type': "application/json",
-    //       'Accept': 'application/json'
-    //     },
-    //     body: jsonEncode(
-    //       {
-    //         'name': nameController.text.toString(),
-    //         'email': emailController.text.toLowerCase().toString(),
-    //         'password': passwordController.text.toString(),
-    //       },
-    //     ),
-    //   );
-    //   if (response.statusCode == 200) {
-    //     print(jsonDecode(response.body));
-    //   } else {
-    //     print('error: ${response.statusCode}');
-    //   }
-    // } catch (e) {
-    //   print("errorrrrrrrr: $e");
-    // }
-
-    // postRequest(String route, Map<String, dynamic> data) async {
-    //     String url = "http://192.168.137.1:8000/api/v1$route";
-    //     return await http.post(Uri.parse(url), body: jsonEncode(data), headers: {
-    //       'Content-type': 'application/json',
-    //       'Accept': 'application/json'
-    //     });
-    //   }
-
-    // header() =>
-    //     {'Content-type': 'application/json', 'Accept': 'application/json'};
-
-    final data = {
-      'email': emailController.text.toString(),
-      'password': passwordController.text.toString(),
-    };
-    final result = await API().postRequest('/loginn', data);
-    print("heyyyy ${jsonDecode(result.body)}");
-    final response = jsonDecode(result.body);
-    if (response['status'] == 200) {
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      await preferences.setInt('user_id', response['user']['id']);
-      await preferences.setString('name', response['user']['name']);
-      await preferences.setString('email', response['user']['email']);
-      await preferences.setString('token', response['token']);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(response['message']),
-        ),
-      );
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
-        ),
-      );
-    } else {
-      print(response.statusCode);
-      print(response["message"]);
-    }
   }
 }
 

@@ -75,30 +75,37 @@ class _CartScreenState extends State<CartScreen> {
             itemCount: cartProvider.cartItemsGetter.length,
             itemBuilder: (context, index) {
               final cartItem = cartProvider.cartItemsGetter[index];
-              return ListTile(
-                isThreeLine: true,
-                leading: Image.network(cartItem.imageUrl),
-                title: Text(cartItem.productName),
-                subtitle: Text('\$${cartItem.price.toStringAsFixed(2)}'),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.remove),
-                      onPressed: () {
-                        cartProvider.decreaseQuantity(index);
-                      },
-                    ),
-                    Text('${cartItem.quantity}'),
-                    IconButton(
-                      icon: Icon(Icons.add),
-                      onPressed: () {
-                        cartProvider.increaseQuantity(index);
-                      },
-                    ),
-                  ],
-                ),
-              );
+              return cartProvider.cartItemsGetter.isNotEmpty
+                  ? ListTile(
+                      isThreeLine: true,
+                      leading: Image.network(cartItem.imageUrl),
+                      title: Text(cartItem.productName),
+                      subtitle: Text('\$${cartItem.price.toStringAsFixed(2)}'),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.remove),
+                            onPressed: () {
+                              cartProvider.decreaseQuantity(index);
+                            },
+                          ),
+                          Text('${cartItem.quantity}'),
+                          IconButton(
+                            icon: Icon(Icons.add),
+                            onPressed: () {
+                              cartProvider.increaseQuantity(index);
+                            },
+                          ),
+                        ],
+                      ),
+                    )
+                  : Center(
+                      child: Text(
+                        'data',
+                        style: TextStyle(fontSize: 50, color: Colors.cyan),
+                      ),
+                    );
             },
           ),
         ),
@@ -108,15 +115,6 @@ class _CartScreenState extends State<CartScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // IconButton(
-            //     onPressed: () async {
-            //       SharedPreferences preferences =
-            //           await SharedPreferences.getInstance();
-            //       int? id = preferences.getInt('orderId');
-            //       double? total = preferences.getDouble('total');
-            //       print(id);
-            //     },
-            //     icon: Icon(Icons.abc)),
             Text(
               '${AppLocale.of(context).translate('total')!}: \$${cartProvider.calculateTotalPrice().toStringAsFixed(2)}',
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -132,19 +130,12 @@ class _CartScreenState extends State<CartScreen> {
             ),
             Container(
               height: MediaQuery.of(context).size.height / 20,
-              // height: 40.0,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.0),
                 gradient: Provider.of<ThemeProvider>(context).linearGradient,
               ),
               child: TextButton(
                 onPressed: () async {
-                  // SharedPreferences preferences =
-                  //     await SharedPreferences.getInstance();
-                  // int? userId = preferences.getInt('user_id');
-                  // String? token = preferences.getString('token');
-
-                  // orderProvider.addToOrders(userId!, totalPrice, token!);
                   showModalBottomSheet(
                       enableDrag: false,
                       useSafeArea: true,
@@ -187,66 +178,66 @@ class _CartScreenState extends State<CartScreen> {
                                         ],
                                       ),
                                       Container(
-                                          constraints: const BoxConstraints(
-                                            maxHeight: 200.0,
-                                          ),
-                                          child: ListView.builder(
-                                            itemCount: cartProvider
-                                                    .cartItemsGetter.isEmpty
-                                                ? 1 // Display one item for the empty state message
-                                                : cartProvider
-                                                    .cartItemsGetter.length,
-                                            // Add 1 for the empty state
-                                            itemBuilder: (context, index) {
-                                              if (cartProvider
-                                                  .cartItemsGetter.isEmpty) {
-                                                // Display a message when the list is empty
-                                                return Center(
-                                                  child: Text(AppLocale.of(
-                                                          context)
-                                                      .translate('cartEmpty')!),
-                                                );
-                                              } else {
-                                                // Display the list items when there are items in the list
-                                                final cartItem = cartProvider
-                                                    .cartItemsGetter[index];
-                                                return ListTile(
-                                                  isThreeLine: true,
-                                                  leading: Image.network(
-                                                      cartItem.imageUrl),
-                                                  title: Text(
-                                                      cartItem.productName),
-                                                  subtitle: Text(
-                                                      'Price: \$${cartItem.price.toStringAsFixed(2)}'),
-                                                  trailing: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      IconButton(
-                                                        icon:
-                                                            Icon(Icons.remove),
-                                                        onPressed: () {
-                                                          cartProvider
-                                                              .decreaseQuantity(
-                                                                  index - 1);
-                                                        },
-                                                      ),
-                                                      Text(
-                                                          '${cartItem.quantity}'),
-                                                      IconButton(
-                                                        icon: Icon(Icons.add),
-                                                        onPressed: () {
-                                                          cartProvider
-                                                              .increaseQuantity(
-                                                                  index - 1);
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
-                                                );
-                                              }
-                                            },
-                                          )),
+                                        constraints: const BoxConstraints(
+                                          maxHeight: 200.0,
+                                        ),
+                                        child: ListView.builder(
+                                          itemCount: cartProvider
+                                                  .cartItemsGetter.isEmpty
+                                              ? 1 // Display one item for the empty state message
+                                              : cartProvider
+                                                  .cartItemsGetter.length,
+                                          // Add 1 for the empty state
+                                          itemBuilder: (context, index) {
+                                            if (cartProvider
+                                                .cartItemsGetter.isEmpty) {
+                                              // Display a message when the list is empty
+                                              return Center(
+                                                child: Text(AppLocale.of(
+                                                        context)
+                                                    .translate('cartEmpty')!),
+                                              );
+                                            } else {
+                                              // Display the list items when there are items in the list
+                                              final cartItem = cartProvider
+                                                  .cartItemsGetter[index];
+                                              return ListTile(
+                                                isThreeLine: true,
+                                                leading: Image.network(
+                                                    cartItem.imageUrl),
+                                                title:
+                                                    Text(cartItem.productName),
+                                                subtitle: Text(
+                                                    'Price: \$${cartItem.price.toStringAsFixed(2)}'),
+                                                trailing: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    IconButton(
+                                                      icon: Icon(Icons.remove),
+                                                      onPressed: () {
+                                                        cartProvider
+                                                            .decreaseQuantity(
+                                                                index - 1);
+                                                      },
+                                                    ),
+                                                    Text(
+                                                        '${cartItem.quantity}'),
+                                                    IconButton(
+                                                      icon: Icon(Icons.add),
+                                                      onPressed: () {
+                                                        cartProvider
+                                                            .increaseQuantity(
+                                                                index - 1);
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            }
+                                          },
+                                        ),
+                                      ),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -572,9 +563,6 @@ class _CartScreenState extends State<CartScreen> {
                                                       ),
                                                     ));
                                           }
-
-                                          // Clear the cart
-                                          // cartProvider.clearCart();
                                         }
                                       }
                                     },
@@ -589,16 +577,6 @@ class _CartScreenState extends State<CartScreen> {
                                     ),
                                   ),
                                 ),
-                                // IconButton(
-                                //     onPressed: () async {
-                                //       SharedPreferences preferences =
-                                //           await SharedPreferences.getInstance();
-                                //       int? id = preferences.getInt('orderId');
-                                //       double? total =
-                                //           preferences.getDouble('total');
-                                //       print(id);
-                                //     },
-                                //     icon: Icon(Icons.abc)),
                               ],
                             ),
                           ),
@@ -620,20 +598,4 @@ class _CartScreenState extends State<CartScreen> {
       ),
     );
   }
-
-  // double calculateTotalPrice(List<CartItem> cartItems) {
-  //   double total = 0;
-  //   for (var item in cartItems) {
-  //     total += item.price * item.quantity;
-  //   }
-  //   return total;
-  // }
-
-  // int calculateTotalQuantity(List<CartItem> cartItems) {
-  //   int totalQuantity = 0;
-  //   for (var item in cartItems) {
-  //     totalQuantity += item.quantity;
-  //   }
-  //   return totalQuantity.toInt();
-  // }
 }

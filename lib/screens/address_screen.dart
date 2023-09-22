@@ -89,15 +89,16 @@ class _AddressScreenState extends State<AddressScreen> {
                                 fontWeight: FontWeight.bold),
                           ),
                           IconButton(
-                              onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => AddressFormScreen()));
-                              },
-                              icon: const Icon(
-                                Icons.add_circle_outline_sharp,
-                                size: 30,
-                                color: Color(0xffFFB100),
-                              ))
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => AddressFormScreen()));
+                            },
+                            icon: const Icon(
+                              Icons.add_circle_outline_sharp,
+                              size: 30,
+                              color: Color(0xffFFB100),
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -119,9 +120,12 @@ class _AddressScreenState extends State<AddressScreen> {
                       child: Consumer<AddressProvider>(
                           builder: (context, provider, child) {
                         if (provider.shippingAddressItems.isEmpty) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
+                          return Center(
+                              child: Text(
+                            AppLocale.of(context).translate('noAddress')!,
+                            style: const TextStyle(
+                                fontSize: 17, fontWeight: FontWeight.bold),
+                          ));
                         } else if (provider.shippingAddressItems.isNotEmpty) {
                           return ListView.builder(
                             itemCount: provider.shippingAddressItems.length,
@@ -133,7 +137,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                     "${shippingaddress.firstName.toString()} ${shippingaddress.lastName.toString()}"),
                                 trailing: IconButton(
                                   onPressed: () {
-                                    _editDialog(context, shippingaddress);
+                                    editDialog(context, shippingaddress);
                                   },
                                   icon: const Icon(Icons.edit),
                                 ),
@@ -160,7 +164,7 @@ class _AddressScreenState extends State<AddressScreen> {
     );
   }
 
-  Future<void> _editDialog(
+  Future<void> editDialog(
       BuildContext context, ShippingAddressItem address) async {
     final TextEditingController firstNameController =
         TextEditingController(text: address.firstName);
@@ -192,62 +196,45 @@ class _AddressScreenState extends State<AddressScreen> {
                       controller: firstNameController,
                       decoration:
                           const InputDecoration(labelText: 'First Name'),
-                      onChanged: (value) {
-                        // Update the firstName of address here
-                      },
+                      onChanged: (value) {},
                     ),
                     TextFormField(
                       controller: lastNameController,
                       decoration: const InputDecoration(labelText: 'Last Name'),
-                      onChanged: (value) {
-                        // Update the firstName of address here
-                      },
+                      onChanged: (value) {},
                     ),
                     TextFormField(
                       controller: addressLine1Controller,
                       decoration:
                           const InputDecoration(labelText: 'Address Line 1'),
-                      onChanged: (value) {
-                        // Update the firstName of address here
-                      },
+                      onChanged: (value) {},
                     ),
                     TextFormField(
                       controller: addressLine2Controller,
                       decoration:
                           const InputDecoration(labelText: 'Address Line 2'),
-                      onChanged: (value) {
-                        // Update the firstName of address here
-                      },
+                      onChanged: (value) {},
                     ),
                     TextFormField(
                       controller: cityController,
                       decoration: const InputDecoration(labelText: 'City'),
-                      onChanged: (value) {
-                        // Update the firstName of address here
-                      },
+                      onChanged: (value) {},
                     ),
                     TextFormField(
                       controller: stateController,
                       decoration: const InputDecoration(labelText: 'State'),
-                      onChanged: (value) {
-                        // Update the firstName of address here
-                      },
+                      onChanged: (value) {},
                     ),
                     TextFormField(
                       controller: zipCodeController,
                       decoration: const InputDecoration(labelText: 'Zip Code'),
-                      onChanged: (value) {
-                        // Update the firstName of address here
-                      },
+                      onChanged: (value) {},
                     ),
                     TextFormField(
                       controller: countryController,
                       decoration: const InputDecoration(labelText: 'Country'),
-                      onChanged: (value) {
-                        // Update the firstName of address here
-                      },
+                      onChanged: (value) {},
                     ),
-                    // Add other fields similarly...
                   ],
                 ),
               ),

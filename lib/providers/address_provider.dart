@@ -82,12 +82,6 @@ class AddressProvider with ChangeNotifier {
     final response = jsonDecode(result.body);
     if (response['status'] == 200) {
       print("shipping address: $response");
-      // for(var shipaddres in shippingAddressItems){
-      //   //            print("ship add id is :${shipaddres.id}");
-      //   //              print("new ship add id is:${response["data"]["id"]}");
-      //   //                if (shipaddres.id == response["data"]["id"]){
-
-      // }
       notifyListeners();
     }
   }
